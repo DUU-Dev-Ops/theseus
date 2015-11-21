@@ -3,12 +3,23 @@
   "version": "1.0.0",
   "description": "DUU's Web Application for Events Management",
   "main": "server.js",
+  "license": "MIT",
   "dependencies": {
+    "angular2": "^2.0.0-alpha.46",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
-    "mongoose": "^4.2.7"
+    "mongoose": "^4.2.7",
+    "morgan": "^1.6.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^3.1.0",
+    "serve-favicon": "^2.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "live-server": "^0.8.2",
+    "uglifyjs": "^2.4.10"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -17,10 +28,6 @@
     "type": "git",
     "url": "git+https://github.com/DUU-Dev-Ops/theseus.git"
   },
-  "keywords": [
-    "express",
-    "Angular"
-  ],
   "author": "",
   "bugs": {
     "url": "https://github.com/DUU-Dev-Ops/theseus/issues"
