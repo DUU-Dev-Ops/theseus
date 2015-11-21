@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "Theseus",
   "version": "1.0.0",
   "description": "DUU's Web Application for Events Management",
   "main": "server.js",
@@ -16,9 +16,7 @@
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
-    "live-server": "^0.8.2",
-    "uglifyjs": "^2.4.10"
+    "live-server": "^0.8.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
