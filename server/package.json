@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "DUU's Web Application for Events Management",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DUU-Dev-Ops/theseus.git"
+  },
+  "keywords": [
+    "express",
+    "Angular"
+  ],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/DUU-Dev-Ops/theseus/issues"
+  },
+  "homepage": "https://github.com/DUU-Dev-Ops/theseus#readme"
+}
