@@ -31,7 +31,7 @@ require('./config/db')();
 // TODO: Configure and load passport.js
 
 // Set up app routes
-require('./config/route')(app);
+require('./config/routes')(app);
 
 // TODO: Set up CSURF, maybe?
 
