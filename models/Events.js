@@ -13,11 +13,9 @@ var EventSchema = new Schema({
      	trim: true,
      	index: { unique: true }
   },
-  location: { 
-	location_str: 	{	type: String},
-	location_desc:	{	type: String, 
-				required: true
-			}    
+  loc: { 
+	location_str: 	{type: String},
+	location_desc:	{type: String, required: true}    
   },
   start_time:		{type: String, required: true},
   end_time:		{type: String, required: true}, 
