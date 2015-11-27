@@ -32,5 +32,5 @@ var EventSchema = new Schema({
   isPublic:		{type: Boolean, required: true} 
 });
 
-module.exports = mongoose.model('Event', EventSchema);
+module.exports = mongoose.model('Event', EventSchema)
 

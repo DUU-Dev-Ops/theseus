@@ -36,9 +36,8 @@ require('./config/routes')(app);
 // TODO: Set up CSURF, maybe?
 
 // Default error handler
-app.use(function(err, req, res) {
-  res.status(err.status || 500);
-  res.send({ message: "Some error?" });
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500).send({ message: "Some error?" });
 });
 
 exports = module.exports = app;
