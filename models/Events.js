@@ -6,12 +6,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
   committee: {
 	type: String,
      	required: true,
      	lowercase: true,
-     	trim: true,
-     	index: { unique: true }
+     	trim: true
   },
   loc: { 
 	location_str: 	{type: String},

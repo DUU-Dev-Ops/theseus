@@ -1,11 +1,11 @@
-var Event = require('../models/Events.js').Event;
+var Event = require('../models/Events.js');
 
 module.exports = {
   create: function(req, res, next) { 
     var newEvent = new Event(req.body);
-    Event.save(function(err, event) {
+    newEvent.save(function(err, event) {
       if (err) {
-        res.json({e: err});
+        res.json({error: err});
       } else {
         res.json(event);
       }
