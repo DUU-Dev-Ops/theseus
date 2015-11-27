@@ -26,7 +26,7 @@ var EventSchema = new Schema({
   sensor_count:			{type: Number, default:0},
   est_cost:				{type: Number, default:0},
   restricted_access:	{type: Boolean, required: true, default: true},
-  isPublic:				{type: Boolean, required: true, default: false} 
+  is_public:			{type: Boolean, required: true, default: false} 
 });
 module.exports = mongoose.model('Event', EventSchema);
 
