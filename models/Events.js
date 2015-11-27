@@ -1,36 +1,31 @@
 /*
  * Mongoose schema for DUU Events 
  */ 
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var EventSchema = new Schema({
   committee: {
-	type: String,
-     	required: true,
-     	lowercase: true,
-     	trim: true,
-     	index: { unique: true }
+		type: String,
+     	required: true, 
+     	trim: true, 
   },
+  event_name:			 {type: String, required: true},
   loc: { 
-	location_str: 	{type: String},
-	location_desc:	{type: String, required: true}    
+	location_str: 		{type: String, default: ""},
+	location_desc:		{type: String, required: true, default: ""}    
   },
-  start_time:		{type: String, required: true},
-  end_time:		{type: String, required: true}, 
-  links:		{type: Array},
-  event_desc:		{type: String, required: true},
-  primary_duu_contacts:	{type: Array, required: true},
-  primary_ext_contacts:	{type: Array, required: true},
-  notes: 		{type: String},
-  attendance:		{type: Array, default:[]},
-  attendance_sensor:	{type: Array, default: []},
-  sensor_count:		{type: Number, default:0},
-  est_cost:		{type: Number, default:0},
-  restricted_access:	{type: Boolean, required: true},
-  isPublic:		{type: Boolean, required: true} 
+  start_time:			{type: String, required: true, default:"TIME"},
+  end_time:				{type: String, required: true, default: "TIME"}, 
+  links:				{type: [String], default: []},
+  event_desc:			{type: String, required: true},
+  primary_duu_contacts:	{type: [String], required: true, default: []},
+  primary_ext_contacts:	{type: [String], required: true, default:[]},
+  notes: 				{type: String, default: ""},
+  attendance:			{type: [Number], default:[]},
+  attendance_sensor:	{type: [String], default: []},
+  sensor_count:			{type: Number, default:0},
+  est_cost:				{type: Number, default:0},
+  restricted_access:	{type: Boolean, required: true, default: true},
+  isPublic:				{type: Boolean, required: true, default: false} 
 });
-
 module.exports = mongoose.model('Event', EventSchema);
-
