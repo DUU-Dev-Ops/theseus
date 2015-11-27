@@ -9,7 +9,7 @@ var EventSchema = new Schema({
      	required: true, 
      	trim: true, 
   },
-  event_name:			 {type: String, required: true},
+  event_name:			{type: String, required: true},
   loc: { 
 	location_str: 		{type: String, default: ""},
 	location_desc:		{type: String, required: true, default: ""}    
