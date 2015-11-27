@@ -9,7 +9,7 @@ var EventSchema = new Schema({
      	required: true, 
      	trim: true, 
   },
-  event_name:			{type: String, required: true},
+  event_name:			 {type: String, required: true, trim: true},
   loc: { 
 	location_str: 		{type: String, default: ""},
 	location_desc:		{type: String, required: true, default: ""}    
@@ -18,8 +18,8 @@ var EventSchema = new Schema({
   end_time:				{type: String, required: true, default: "TIME"}, 
   links:				{type: [String], default: []},
   event_desc:			{type: String, required: true},
-  primary_duu_contacts:	{type: [String], required: true, default: []},
-  primary_ext_contacts:	{type: [String], required: true, default:[]},
+  primary_duu_contacts:	{type: [{contact_name: String, contact_info: String}], required: true, default: []},
+  primary_ext_contacts:	{type: [{contact_name: String, contact_info: String}], required: true, default:[]},
   notes: 				{type: String, default: ""},
   attendance:			{type: [Number], default:[]},
   attendance_sensor:	{type: [String], default: []},
