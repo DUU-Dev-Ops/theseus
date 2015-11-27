@@ -5,7 +5,7 @@ module.exports = {
     var newEvent = new Event(req.body);
     Event.save(function(err, event) {
       if (err) {
-        res.json({error: err});
+        res.json({e: err});
       } else {
         res.json(event);
       }

@@ -37,7 +37,8 @@ require('./config/routes')(app);
 
 // Default error handler
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500).send({ message: "Some error?" });
+  console.error(err.stack);
+  res.status(err.status || 500).send({ message: "An internal error occurred." });
 });
 
 exports = module.exports = app;
