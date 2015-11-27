@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap-select test page</title>
+
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/bootstrap-select.css">
+
+  <style>
+    body {
+      padding-top: 70px;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="dist/js/bootstrap-select.js"></script>
+</head>
+<body>
+
+
+  <hr>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="basic2" class="col-lg-2 control-label">"Basic" (multiple, maxOptions=1)</label>
+
+      <div class="col-lg-10">
+        <select id="basic2" class="show-tick form-control" multiple>
+          <option>cow</option>
+          <option>bull</option>
+          <option class="get-class" disabled>ox</option>
+          <optgroup label="test" data-subtext="another test">
+            <option>ASD</option>
+            <option selected>Bla</option>
+            <option>Ble</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </form>
+
+  
+
+<script>
+  $(document).ready(function () {
+    
+    $('#basic2').selectpicker({
+      liveSearch: true,
+      maxOptions: 1
+    });
+  });
+</script>
+</body>
+</html>

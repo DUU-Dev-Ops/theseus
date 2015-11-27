@@ -1,15 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
 
-  <title>Theseu - DUU</title>
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DUU Event Dashboard</title>
+    
+    <!--    jQuery Core-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Bootstrap Core -->
+<!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!--    <script src="js/bootstrap.min.js" rel="text/javascript"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    
+    <!--    custom select-->
+    <link rel="stylesheet" href="custom-select/dist/css/bootstrap-select.css">
+    <script src="custom-select/dist/js/bootstrap-select.js"></script>
+    
+    <!-- Sidebar CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/metro-icons.css" rel="stylesheet">
+    
+    <!--    calendar addon-->
+    <script type="text/javascript" src="/time-picker/jquery.timepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/time-picker/jquery.timepicker.css" />
+
+    <script type="text/javascript" src="/time-picker/lib/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/time-picker/lib/bootstrap-datepicker.css" />
+    
+    <link rel="stylesheet" type="text/css" href="css/main.css"
+     
+    
+    
+    
 
 <body>
-  <!--<script src="/node_modules/angular2/></script>-->
+
+    <div id="wrapper">
+        <!--  navbar-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                <a class="navbar-brand" href="#menu-toggle" id="menu-toggle" >Dashboard</a>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                  <ul class="nav navbar-nav navbar-right">
+                      <li>
+                        <form class="navbar-form" role="search">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search by keywoard">
+                    </div>
+                    <button type="submit" class="btn btn-default">Go</button>
+                        </form>
+                          </li>
+                      <li><a href="#"><span class="glyphicon glyphicon-plus"></span> New Event</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  </ul>
+                </div>
+          </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" id="DUU">
+                    <a href="#">Duke University Union</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-coffee"></i>&nbsp;&nbsp;&nbsp; Coffee House</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-microphone"></i>&nbsp;&nbsp;&nbsp; Speakers & Stages</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-calendar-plus-o"></i>
+&nbsp;&nbsp;&nbsp;LDOC</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-spinner"></i>&nbsp;&nbsp;&nbsp;Visarts</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;&nbsp;WXDU</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-headphones"></i>&nbsp;&nbsp;&nbsp;Small Town Records</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-music"></i>&nbsp;&nbsp;&nbsp;Jazz@</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-lightbulb-o"></i>&nbsp;&nbsp;&nbsp;Innovations</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-film"></i>&nbsp;&nbsp;&nbsp;Freewater Presentations<a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;&nbsp;Freewater Productions</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-rss"></i>&nbsp;&nbsp;&nbsp;Duke Student Broadcasting</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-ticket"></i>&nbsp;&nbsp;&nbsp;Campus Concerts</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp;Annual Events</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+        <div class="col-lg-7 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-9 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+<!--                    end nav-->
+                    <br>
+<!--                    NEW EVENT FORM-->
+                    <div class="page-header">
+                        <h1>New Event</h1>
+                    </div>
+                    <form class="form-horizontal" role="form">
+                        
+<!--                        Event Title-->
+                        
+                        <div class="form-group">
+                            <label for="event-title" class="col-sm-4 control-label">Event Title</label>                 
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control" id="event-title" placeholder="Enter a title for the event">
+                            </div>
+                        </div>
+                        
+<!--                        Committee-->
+                        
+                        <div class="form-group">
+                            <label for="select" class="col-sm-4 control-label">Committee</label>
+                            <div class="col-sm-8">
+<!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
+                                <select id="committee" class="show-tick form-control" data-size="5" multiple>
+                                    <option>Coffee House</option>
+                                    <option>Speakers & Stages</option>
+                                    <option>LDOC</option>
+                                    <option>Visarts</option>
+                                    <option>WXDU</option>
+                                    <option>Small Town Records</option>
+                                    <option>Jazz@</option>
+                                    <option>Innovations</option>
+                                    <option>Freewater Presentations</option>
+                                    <option>Freewater Productions</option>
+                                    <option>Duke Student Broadcasting</option>
+                                    <option>Campus Concerts</option>
+                                    <option>Annual Events</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+<!--                        Date-->
+                        
+                        <div class="form-group">
+                            <label for="datepicker" class="col-sm-4 control-label">Date of event</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" id="datepairExample">
+                                <input type="text" class="date start form-control"  placeholder="Pick a date" aria-describedby="gl_date" id="datepicker">
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar" area-hidden="true"></span>
+                                </span>
+                                </div>
+                            </div>                    
+                        </div>
+                        
+<!--                        Time-->
+                        <div class="form-group">
+                            <label for="event-time" class="col-sm-4 control-label">Time of event</label>
+                            <div class="col-sm-8">
+                                <div class="input-group" id="datepairExample">
+                                    <input type="text" class="time start form-control" placeholder="From" id="event-time">
+                                    <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time" area-hidden="true"></span>
+                                </span>
+                                    
+                                    <input type="text" class="time end form-control" placeholder="To">
+                                    <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time" area-hidden="true"></span>
+                                </span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+<!--                        facebook link-->
+                        <div class="form-group">
+                            <label for="contact" class="col-sm-4 control-label">Facebook Link</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                            <input type="text" class="form-control" id="contact" placeholder="https://www.facebook.com/events/">
+                                <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+                               </div>
+    
+                            </div>
+
+                        </div>
+                        
+<!--                        Event Description-->
+                        
+                        <div class="form-group">
+                            <label for="event-des" class="col-sm-4 control-label">Public Event Description</label>
+                            <div class="col-sm-8" data-example-id="textarea-form-control">
+                                <textarea class="form-control" rows="5" id="event-des" placeholder="Enter event description for public."></textarea>
+                            </div>
+                        </div>
+                        
+<!--                        Internal notes-->
+                        
+                        <div class="form-group">
+                            <label for="event-des" class="col-sm-4 control-label">Internal Notes</label>
+                            <div class="col-sm-8" data-example-id="textarea-form-control">
+                                <textarea class="form-control" rows="5" id="event-des" placeholder="Enter internal notes for event."></textarea>
+                                <p class="text-muted">Internal use only. Will not be displayed to public.</p>
+                            </div>
+                        </div>
+                        
+                        
+<!--                        Contact-->
+                        
+                        <div class="form-group">
+                            <label for="contact" class="col-sm-4 control-label">Primary Contact</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="contact" placeholder="Name">
+  
+                            </div>
+
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="col-sm-4 control-label">Email</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                <input type="text" class="form-control" id="email" placeholder="NetID">
+                                <span class="input-group-addon">@duke.edu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="pull-right">
+                         <input type="submit" value="Submit" class="btn btn-default">
+                        </div>
+                        <br> <br> <br> <br>
+                    </form>                   
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+        
+        
+        <footer class="footer"> 
+            <div class="container-fluid">
+                <p class="text-muted">@Copyright Duke University Union</p>
+            </div>
+        </footer>
+    </div>
+    <!-- /#wrapper -->
+
+    <!--    javascript-->
+    <script>
+        $('#committee').selectpicker({
+                liveSearch:true,
+                maxOptions:1,
+                
+            });
+        $('#menu-toggle').click(function(event){
+                event.preventDefault();
+                $('#wrapper').toggleClass('toggled');
+            });
+       
+        $('#datepairExample .time').timepicker({
+                'showDuration': true,
+                'timeFormat': 'g:ia'
+            });
+            $('#datepairExample .date').datepicker({
+                'format': 'm/d/yyyy',
+                'autoclose': true
+            });
+            $('#datepairExample').datepair();
+       
+    </script>
+    
 </body>
+
 </html>
