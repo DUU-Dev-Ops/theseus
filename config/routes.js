@@ -9,7 +9,8 @@ module.exports = function(app) {
   var events = require('../api/events.js');
   app.get('/', hello.world);
   app.post('/api/events', events.create);
-  
+  app.get('/api/events/:committee', events.find);  
   // TODO: Add more
+
 };
 
