@@ -138,35 +138,41 @@
 <!--                    end nav-->
                     <br>
 <!--                    NEW EVENT FORM-->
+                   
+                    <div ng-controller="eventFormController">
+                        <div class="alert alert-success" ng-init="submitSuccess:false" ng-show="submitSuccess" role="alert">Great! You successfully created a new event!</div>
+                    
+                    <form class="form-horizontal" name="newEventForm" role="form" ng-submit="submitForm()" ng-init="showNewEventForm:true" ng-show="showNewEventForm" novalidate>           
                     <div class="page-header">
                         <h1>New Event</h1>
                     </div>
-                    <form ng-controller="eventFormController" class="form-horizontal" name="newEventForm" role="form" ng-submit="submitForm()" novalidate>
+                    <div class="alert alert-danger" ng-init="invalidForm:false" ng-show="invalidForm" role="alert">Please fill out the required fields before submission!</div>
                         
 <!--                        Event Title-->
-                        
-                        <div class="form-group" ng-class="{'has-error':newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine }">
+                        <div class="form-group required" ng-class="{'has-error':newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine }">
                             <label for="event-title" class="col-sm-4 control-label">Event Title</label>                 
                             <div class="col-sm-8">
                             <input type="text" name="eventTitle" ng-model="event.title" class="form-control" id="event-title" placeholder="Enter a title for the event" required>
                             <p ng-show="newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine" class="help-block">Event title is required.</p>
+<!--                                <p>{{ newEventForm.eventTitle.$valid }}</p>-->
                             </div>
                         </div>
                         
                         
                         
 <!--                        location-->
-                        <div class="form-group" ng-class="{'has-error':newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine }">
+                        <div class="form-group required" ng-class="{'has-error':newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine }">
                             <label for="event-loc" class="col-sm-4 control-label">Event Location</label>                 
                             <div class="col-sm-8">
                             <input type="text" name="eventLoc" ng-model="event.location" class="form-control" id="event-loc" placeholder="Enter a location for the event" required>
                                 <p ng-show="newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine" class="help-block">Event location is required.</p>
+<!--                                <p>{{ newEventForm.eventLoc.$valid }}</p>-->
                             </div>
                         </div>
                         
 <!--                        Committee-->
                         
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="select" class="col-sm-4 control-label">Committee</label>
                             <div class="col-sm-8">
 <!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
@@ -194,7 +200,7 @@
                         
 <!--                        Date-->
                         
-                        <div class="form-group" ng-class="{'has-error':newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine }">
+                        <div class="form-group required" ng-class="{'has-error':newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine }">
                             <label for="datepicker" class="col-sm-4 control-label">Date of event</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
@@ -204,11 +210,12 @@
                                 </span>
                                 </div>
                                  <p ng-show="newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine" class="help-block">Event date is required.</p>
+<!--                                <p>{{ newEventForm.eventDate.$valid }}</p>-->
                             </div>                    
                         </div>
                         
 <!--                        Time    -->
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="event-time" class="col-sm-4 control-label">Time of event</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
@@ -313,7 +320,7 @@
                         
 <!--                        Event Description-->
                         
-                         <div class="form-group" ng-class="{'has-error':newEventForm.eventDes.$invalid && !newEventForm.eventDes.$pristine }">
+                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventDes.$invalid && !newEventForm.eventDes.$pristine }">
                             <label for="event-des" class="col-sm-4 control-label">Public Event Description</label>
                             <div class="col-sm-8" data-example-id="textarea-form-control">
                                 <textarea ng-model="event.eventDes" name="eventDes" class="form-control" rows="5" id="event-des" placeholder="Enter event description for public." required></textarea>
@@ -336,7 +343,7 @@
                         
 <!--                        Contact-->
                         
-                        <div class="form-group" ng-class="{'has-error':newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine }">
+                        <div class="form-group required" ng-class="{'has-error':newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine }">
                             <label for="contact" class="col-sm-4 control-label">Primary Contact</label>
                             <div class="col-sm-8">
                                 <input ng-model="event.contactName" name="eventContact" type="text" class="form-control" id="contact" placeholder="Name" required>
@@ -345,7 +352,7 @@
                             
                         </div>
                         
-                         <div class="form-group" ng-class="{'has-error':newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine }">
+                         <div class="form-group required" ng-class="{'has-error':newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine }">
                             <label for="email" class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
@@ -356,24 +363,32 @@
                             </div>
                         </div>
                         <br>
+<!--                        <p>{{ newEventForm.$valid }}</p>-->
                         <div class="pull-right">
-                         <input type="submit" value="Submit" class="btn btn-default">
+                         <input type="submit" value="Submit" ng-click="submitForm()" class="btn btn-default">
                         </div>
                         <br> <br> <br> <br>
-                    </form>                   
+                    </form>
+                    </div>
                 </div>
             </div>
         </div>
 
         </div>
         <!-- /#page-content-wrapper -->
+<!--
+        <div class="push">
+            
+        </div>
+-->
         
-        
+<!--
         <footer class="footer"> 
             <div class="container-fluid">
                 <p class="text-muted">@Copyright Duke University Union</p>
             </div>
         </footer>
+-->
     </div>
     <!-- /#wrapper -->
 
