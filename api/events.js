@@ -10,5 +10,14 @@ module.exports = {
         res.json(event);
       }
     });
+  },
+  find: function(req,res) {
+    var currentcommittee = req.params.committee;
+    Event.find({ committee: currentcommittee }, function(err, events) {
+      if (err) {
+	res.json({error: err});
+      }
+      res.json(events);
+  });
   }
 };
