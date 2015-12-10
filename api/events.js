@@ -19,5 +19,15 @@ module.exports = {
       }
       res.json(events);
   });
+  },
+  findByID: function(req,res) {
+    var currentID = req.params.id;
+    Event.findOne({ _id: currentID }, function(err, IDs) {
+      if (err) {
+	res.json({error: err});
+      }
+      res.json(IDs);
+  });
   }
+
 };
