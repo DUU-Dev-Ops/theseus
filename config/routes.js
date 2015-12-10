@@ -10,7 +10,7 @@ module.exports = function(app) {
   app.get('/', hello.world);
   app.post('/api/events', events.create);
   app.get('/api/events/:committee', events.find);  
-  app.get('/api/events/:id', events.findByID);
+  app.get('/api/event/:id', events.findByID);
   // TODO: Add more
 
 };
