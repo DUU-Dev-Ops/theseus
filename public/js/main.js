@@ -20,14 +20,16 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
     $scope.submitForm=function(){
       //post form to server
         if($scope.newEventForm.$valid){   
-            var response = $http.post('#',$scope.event);
-            res.success(function(data,status,headers,config){
+            var response = $http.post('/api/events',$scope.event);
+			console.log($scope.event);
+			console.log(response);
+            response.success(function(data,status,headers,config){
                 $scope.submitSuccess = true;
                 $scope.invalidForm = false;
                 $scope.showNewEventForm = false;
                 $scope.serverMsg = data;
             });
-            res.error(function(data,status,headers,config){
+            response.error(function(data,status,headers,config){
                alert("post failure"); 
             });
         }else{
