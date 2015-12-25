@@ -341,17 +341,18 @@
                         </div>
                         
                         
-<!--                        Contact-->
+<!--                  Primary DUU Contact-->
                         
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine }">
-                            <label for="contact" class="col-sm-4 control-label">Primary Contact</label>
+                            <label for="contact" class="col-sm-4 control-label">Primary DUU Contact</label>
                             <div class="col-sm-8">
                                 <input ng-model="event.primary_duu_contacts.contact_name" name="eventContact" type="text" class="form-control" id="contact" placeholder="Name" required>
                                 <p ng-show="newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine" class="help-block">A primary contact is required.</p>
+<!--                                <p>{{ event.primary_duu_contacts.contact_name }}</p>-->
                             </div>
                             
                         </div>
-                        
+<!--                        Primary contact email-->
                          <div class="form-group required" ng-class="{'has-error':newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine }">
                             <label for="email" class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
@@ -363,16 +364,44 @@
                             </div>
                         </div>
                         
+                        <!--                  Primary external Contact-->
+                        
+                        <div class="form-group required" ng-class="{'has-error':newEventForm.extContact.$invalid && !newEventForm.extContact.$pristine }">
+                            <label for="extContact" class="col-sm-4 control-label">Primary External Contact</label>
+                            <div class="col-sm-8">
+                                <input ng-model="event.primary_ext_contacts.contact_name" name="extContact" type="text" class="form-control" id="contact" placeholder="Name" required>
+                                <p ng-show="newEventForm.extContact.$invalid && !newEventForm.extContact.$pristine" class="help-block">A primary external contact is required.</p>
+<!--                                <p>{{ event.primary_duu_contacts.contact_name }}</p>-->
+                            </div>
+                            
+                        </div>
+                        
+<!--                        external contact email-->
+                        
+                         <div class="form-group required" ng-class="{'has-error':newEventForm.extContactNetID.$invalid && !newEventForm.extContactNetID.$pristine }">
+                            <label for="extEmail" class="col-sm-4 control-label">Email</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                <input ng-model="event.primary_ext_contacts.contact_info" name="extContactNetID" type="text" class="form-control" id="extEmail" placeholder="NetID" required>
+                                <span class="input-group-addon">@duke.edu</span>
+                                </div>
+                                <p ng-show="newEventForm.extContactNetID.$invalid && !newEventForm.extContactNetID.$pristine" class="help-block">Please enter the netID of the external contact.</p>
+                            </div>
+                        </div>
+                        
+                        
+                        
 <!--                        RESTRICTED ACCESS-->
                         <div class="form-group required" ng-class="{'has-error':event.incomplete_access_option }">
-                            <label for="access" class="col-sm-4 control-label">Restricted DUU event</label>
+                            <label for="access" class="col-sm-4 control-label">Restricted DUU Event</label>
                             <div class="col-sm-8">
                                 <div class="form-inline input-group radio" name="restrictedAccess">
-                                      <label><input type="radio" name="optradio"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
+                                      <label><input type="radio" ng-model="event.restricted_access" value="true" name="restricted"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
 
-                                      <label><input type="radio" name="optradio"> No &nbsp; &nbsp;</label>
+                                      <label><input type="radio" ng-model="event.restricted_access" value="false" name="restricted"> No &nbsp; &nbsp;</label>
 <!--                                    </div>-->
                                   </div>
+<!--                                <p>{{ event.restricted_access }}</p>-->
                                 <p ng-show="event.incomplete_access_option" class="help-block">Restricted option is required.</p>
                             </div>
                             
@@ -380,14 +409,15 @@
                         
                         <!--                        IS PUBLIC       -->
                         <div class="form-group required" ng-class="{'has-error':event.incomplete_public_option }">
-                            <label for="public" class="col-sm-4 control-label">Visible to public</label>
+                            <label for="public" class="col-sm-4 control-label">Visible to Public</label>
                             <div class="col-sm-8">
                                 <div class="form-inline input-group radio" name="isPublic">
-                                      <label><input id="public" type="radio" name="optradio"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
+                                      <label><input id="public" ng-model="event.is_public" value="true" type="radio" name="public"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
 
-                                      <label><input type="radio" name="optradio"> No &nbsp; &nbsp;</label>
+                                      <label><input type="radio" ng-model="event.is_public" value="false" name="public"> No &nbsp; &nbsp;</label>
 <!--                                    </div>-->
                                   </div>
+<!--                                <p>{{ event.is_public }}</p>-->
                                 <p ng-show="event.incomplete_public_option" class="help-block">Public option is required.</p>
                             </div>
                             

@@ -28,9 +28,27 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
         incomplete_access_option: false,
         incomplete_public_option: false,
     };
+
     $scope.submitForm=function(){
       //post form to server
-        if($scope.newEventForm.$valid){   
+        if($scope.event.restricted_access===''){
+            $scope.event.incomplete_access_option = true;
+            $scope.submitSuccess = false;
+            $scope.invalidForm = true;
+            return;
+        }
+        if($scope.event.is_public === ''){
+            $scope.event.incomplete_public_option = true;
+            $scope.submitSuccess = false;
+            $scope.invalidForm = true;
+            return;
+        }
+        if($scope.newEventForm.$valid){
+            $scope.event.links = [$scope.event.links];
+            $scope.event.primary_duu_contacts = [$scope.event.primary_duu_contacts];
+            $scope.event.primary_ext_contacts = [$scope.event.primary_ext_contacts];
+            $scope.event.restricted_access = Boolean($scope.event.restricted_access);
+            $scope.event.is_public = Boolean($scope.event.is_public);
             var response = $http.post('/api/events',$scope.event);
 			console.log($scope.event);
 			console.log(response);
