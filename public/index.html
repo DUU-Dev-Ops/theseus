@@ -152,9 +152,9 @@
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine }">
                             <label for="event-title" class="col-sm-4 control-label">Event Title</label>                 
                             <div class="col-sm-8">
-                            <input type="text" name="eventTitle" ng-model="event.title" class="form-control" id="event-title" placeholder="Enter a title for the event" required>
+                            <input type="text" name="eventTitle" ng-model="event.event_name" class="form-control" id="event-title" placeholder="Enter a title for the event" required>
                             <p ng-show="newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine" class="help-block">Event title is required.</p>
-<!--                                <p>{{ newEventForm.eventTitle.$valid }}</p>-->
+<!--                                <p>{{ event.event_name }}</p>-->
                             </div>
                         </div>
                         
@@ -164,7 +164,7 @@
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine }">
                             <label for="event-loc" class="col-sm-4 control-label">Event Location</label>                 
                             <div class="col-sm-8">
-                            <input type="text" name="eventLoc" ng-model="event.location" class="form-control" id="event-loc" placeholder="Enter a location for the event" required>
+                            <input type="text" name="eventLoc" ng-model="event.loc" class="form-control" id="event-loc" placeholder="Enter a location for the event" required>
                                 <p ng-show="newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine" class="help-block">Event location is required.</p>
 <!--                                <p>{{ newEventForm.eventLoc.$valid }}</p>-->
                             </div>
@@ -219,7 +219,7 @@
                             <label for="event-time" class="col-sm-4 control-label">Time of event</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                     <select ng-model="event.timeFrom" id="event-time-from" class="show-tick form-control" data-size="5">
+                                     <select ng-model="event.start_time" id="event-time-from" class="show-tick form-control" data-size="5">
                                     <option>8:00 AM</option>
                                     <option>8:30 AM</option>
                                     <option>9:00 AM</option>
@@ -259,7 +259,7 @@
                                 <span class="glyphicon glyphicon-time" area-hidden="true"></span>
                                 </span>
                                     
-                                     <select ng-model="event.timeTo" class="form-control show-tick" data-size="5" id="event-time-to">
+                                     <select ng-model="event.end_time" class="form-control show-tick" data-size="5" id="event-time-to">
                                     <option>8:00 AM</option>
                                     <option>8:30 AM</option>
                                     <option>9:00 AM</option>
@@ -308,7 +308,7 @@
                             <label for="contact" class="col-sm-4 control-label">Facebook Link</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                            <input ng-model="event.fbLink" type="text" class="form-control" id="contact" placeholder="https://www.facebook.com/events/">
+                            <input ng-model="event.links" type="text" class="form-control" id="contact" placeholder="https://www.facebook.com/events/">
                                 <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
                                
                                 </div>
@@ -323,7 +323,7 @@
                          <div class="form-group required" ng-class="{'has-error':newEventForm.eventDes.$invalid && !newEventForm.eventDes.$pristine }">
                             <label for="event-des" class="col-sm-4 control-label">Public Event Description</label>
                             <div class="col-sm-8" data-example-id="textarea-form-control">
-                                <textarea ng-model="event.eventDes" name="eventDes" class="form-control" rows="5" id="event-des" placeholder="Enter event description for public." required></textarea>
+                                <textarea ng-model="event.event_desc" name="eventDes" class="form-control" rows="5" id="event-des" placeholder="Enter event description for public." required></textarea>
                                 <p ng-show="newEventForm.eventDes.$invalid && !newEventForm.eventDes.$pristine" class="help-block">Event description is required.</p>
                              </div>
                             
@@ -346,7 +346,7 @@
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine }">
                             <label for="contact" class="col-sm-4 control-label">Primary Contact</label>
                             <div class="col-sm-8">
-                                <input ng-model="event.contactName" name="eventContact" type="text" class="form-control" id="contact" placeholder="Name" required>
+                                <input ng-model="event.primary_duu_contacts.contact_name" name="eventContact" type="text" class="form-control" id="contact" placeholder="Name" required>
                                 <p ng-show="newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine" class="help-block">A primary contact is required.</p>
                             </div>
                             
@@ -356,12 +356,44 @@
                             <label for="email" class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                <input ng-model="event.contactNetID" name="contactNetID" type="text" class="form-control" id="email" placeholder="NetID" required>
+                                <input ng-model="event.primary_duu_contacts.contact_info" name="contactNetID" type="text" class="form-control" id="email" placeholder="NetID" required>
                                 <span class="input-group-addon">@duke.edu</span>
                                 </div>
                                 <p ng-show="newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine" class="help-block">Please enter the netID of the primary contact.</p>
                             </div>
                         </div>
+                        
+<!--                        RESTRICTED ACCESS-->
+                        <div class="form-group required" ng-class="{'has-error':event.incomplete_access_option }">
+                            <label for="access" class="col-sm-4 control-label">Restricted DUU event</label>
+                            <div class="col-sm-8">
+                                <div class="form-inline input-group radio" name="restrictedAccess">
+                                      <label><input type="radio" name="optradio"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
+
+                                      <label><input type="radio" name="optradio"> No &nbsp; &nbsp;</label>
+<!--                                    </div>-->
+                                  </div>
+                                <p ng-show="event.incomplete_access_option" class="help-block">Restricted option is required.</p>
+                            </div>
+                            
+                        </div>
+                        
+                        <!--                        IS PUBLIC       -->
+                        <div class="form-group required" ng-class="{'has-error':event.incomplete_public_option }">
+                            <label for="public" class="col-sm-4 control-label">Visible to public</label>
+                            <div class="col-sm-8">
+                                <div class="form-inline input-group radio" name="isPublic">
+                                      <label><input id="public" type="radio" name="optradio"> Yes &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</label>
+
+                                      <label><input type="radio" name="optradio"> No &nbsp; &nbsp;</label>
+<!--                                    </div>-->
+                                  </div>
+                                <p ng-show="event.incomplete_public_option" class="help-block">Public option is required.</p>
+                            </div>
+                            
+                        </div>
+                        
+                        
                         <br>
 <!--                        <p>{{ newEventForm.$valid }}</p>-->
                         <div class="pull-right">

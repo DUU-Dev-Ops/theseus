@@ -17,3 +17,8 @@
    content:"*";
    color:red;
 ｝
+
+.form-inline .form-group{
+    margin-left: 20px;
+    margin-right: 0;
+}

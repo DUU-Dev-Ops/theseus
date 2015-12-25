@@ -4,18 +4,29 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
     $scope.submitSuccess = false;
     $scope.showNewEventForm = true;
     $scope.event={
-        title:'',
-        timeCreated:'',
-        location:'',
+        event_name:'', // title
+        timeCreated:'', // timeCreated
+        loc:'', //location
         committee:'',
         date:'',
-        timeFrom:'',
-        timeTo:'',
-        fbLink:'',
-        eventDes:'',
+        start_time:'', //timeFrom
+        end_time:'', //timeTo
+        links:'', //fbLink CONVERT TYPE []
+        event_desc:'', //eventDes
         notes:'',
-        contactName:'',
-        contactNetID:'',
+        primary_duu_contacts:{
+            contact_name:'',
+            contact_info:'',
+        }, //contactName TYPE []
+        primary_ext_contacts:{
+            contact_name:'',
+            contact_info:'',
+        }, // NEED TO ADD FIELD TYPE []
+        contactNetID:'', // DELETE
+        restricted_access:'', //ADD FIELD, TYPE bool
+        is_public:'', // ADD FIELD, TYEP bool
+        incomplete_access_option: false,
+        incomplete_public_option: false,
     };
     $scope.submitForm=function(){
       //post form to server
