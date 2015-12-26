@@ -38,7 +38,14 @@ require('./config/routes')(app);
 // Default error handler
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(err.status || 500).send({ message: "An internal error occurred." });
+  switch(err.name) {
+  	case "ValidationError":
+  	case "CastError":
+  		err.status = 400;
+  		break;
+  	// Add further specific errors here
+  }
+  res.status(err.status || 500).send({error: err});
 });
 
 exports = module.exports = app;
