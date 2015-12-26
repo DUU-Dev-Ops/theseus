@@ -20,6 +20,11 @@ app.config(function($routeProvider){
 		controller : 'eventFormController'
 	});
 
+    $routeProvider.when('/comparison/:committee', {
+        templateUrl: 'pages/comparison.html',
+        controller: 'comparisonController'
+    });
+
 });
 app.controller('mainController',['$scope','$http',function($scope,$http){
 
@@ -65,6 +70,19 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
     };
     
 }]);
+
+app.controller('comparisonController',['$scope', '$routeParams', '$http',function($scope, $routeParams, $http){
+    $scope.committee = $routeParams.committee;
+    $http.get('/api/events/' + $scope.committee)
+        .success(function(data,status,headers,config){
+            $scope.events = data;
+        })
+        .error(function(data,status,headers,config){
+            alert("Failed to retrieve events for this committee. Errors printed to console.");
+            console.log(data);
+        });
+}]);
+
 
 app.directive('datepicker', function() {
     return {
