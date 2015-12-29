@@ -35,7 +35,8 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
         loc:'', //location
         loc_desc:'', // ADD FIELD
         committee:'',
-        date:'',
+        date_start:'',
+        date_end:'',
         start_time:'', //timeFrom
         end_time:'', //timeTo
         links:'', //fbLink CONVERT TYPE []
@@ -71,6 +72,8 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
             return;
         }
         if($scope.newEventForm.$valid){
+            var dateTimeStart = new Date($scope.event.date_start+' '+$scope.event.start_time);
+            var dateTimeEnd = new Date($scope.event.date_end+' '+$scope.event.end_time);
             var data = {
                   committee: $scope.event.committee[0],
                   event_name: $scope.event.event_name,
@@ -78,8 +81,8 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
                     location_str: 		$scope.event.loc,
                     location_desc:		$scope.event.loc_desc,    
                   },
-                  start_time:			$scope.event.start_time,
-                  end_time:				$scope.event.end_time, 
+                  start_time:			dateTimeStart.toUTCString(),
+                  end_time:				dateTimeEnd.toUTCString(), 
                   links:				[$scope.event.links],
                   event_desc:			$scope.event.event_desc,
                   primary_duu_contacts:	[$scope.event.primary_duu_contacts],
