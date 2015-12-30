@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'chart.js']);
+var app = angular.module('myApp', ['ngRoute']);
 
 /* 
  * FRONT END ROUTING
@@ -133,8 +133,13 @@ app.controller('comparisonController',['$scope', '$routeParams', '$http',functio
     $scope.getComparisonClass = function(v1, v2) {
         if($scope.highlightDifferences) {
             if(v1 instanceof Array && v2 instanceof Array) {
-                // THIS DOESN'T WORK FOR CONTACTS
-                return  $(v1).not(v2).length === 0 && $(v2).not(v1).length === 0 ? "success" : "danger";
+                if(v1.length > 0 && v1[0].contact_name) {
+                    v1 = _.map(v1, function(v) {return v.contact_name});
+                }
+                if(v2.length > 0 && v2[0].contact_name) {
+                    v2 = _.map(v2, function(v) {return v.contact_name});
+                }
+                return _.isEqual(v1,v2) ? "success" : "danger";
             }
             return (v1 === v2) ? "success" : "danger";
         }
