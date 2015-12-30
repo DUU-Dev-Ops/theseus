@@ -81,6 +81,15 @@ app.controller('comparisonController',['$scope', '$routeParams', '$http',functio
             alert("Failed to retrieve events for this committee. Errors printed to console.");
             console.log(data);
         });
+    $scope.getComparisonClass = function(v1, v2) {
+        if($scope.highlightDifferences) {
+            if(v1 instanceof Array && v2 instanceof Array) {
+                // THIS DOESN'T WORK FOR CONTACTS
+                return  $(v1).not(v2).length === 0 && $(v2).not(v1).length === 0 ? "success" : "danger";
+            }
+            return (v1 === v2) ? "success" : "danger";
+        }
+    }
 }]);
 
 
