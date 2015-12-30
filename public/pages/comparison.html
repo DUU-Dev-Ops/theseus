@@ -77,8 +77,12 @@
 	<th ng-class="getComparisonClass(event1.attendance.length, event2.attendance.length)">
 		Attendance
 	</th>
-	<td> <a href="#/detail/{{event1._id}}">{{event1.sensor_count == 0 ? event1.attendance.length : event1.sensor_count}} (click for breakdown) </a> </td>
-	<td> <a href="#/detail/{{event2._id}}">{{event2.sensor_count == 0 ? event2.attendance.length : event2.sensor_count}} (click for breakdown) </a> </td>
+	<td> <a href="#/detail/{{event1._id}}">{{event1.sensor_count == 0 ? event1.attendance.length : event1.sensor_count}} (click to view breakdown) </a>
+		<div>
+			
+		</div> 
+	</td>
+	<td> <a href="#/detail/{{event2._id}}">{{event2.sensor_count == 0 ? event2.attendance.length : event2.sensor_count}} (click to view breakdown) </a> </td>
 	</tr> 
 	<tr>
 	<th ng-class="getComparisonClass(event1.notes, event2.notes)">

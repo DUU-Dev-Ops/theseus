@@ -1,8 +1,8 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'chart.js']);
 
 /* 
  * FRONT END ROUTING
- * This is a single page app. Navigating to different pages based 
+ * This is a single page app. Navigating to  different pages based 
  * on the routes below loads a different page template into the 
  * page body and sets a different controller for that view.
  * When new pages/views are added, be sure to update routing below
