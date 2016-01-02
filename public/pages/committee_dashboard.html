@@ -69,6 +69,8 @@
     <!--        <p class="text-muted" ng-show = "activeEvent">{{ activeEvent.start_time | dateFormat }} &nbsp; to &nbsp; {{ activeEvent.end_time | dateFormat }}</p>-->
                  <div class="alert alert-danger" ng-show="fileDNE.status" role="alert">No data file for the following event: {{ fileDNE.file }}. </div>
                 <div id="graphdiv"></div>
+                <br>
+                <div class="alert alert-success" ng-show="hasGraph" role="alert">Click and drag range selector to zoom in/out. </div>
             </div>
         </div>
     </div>

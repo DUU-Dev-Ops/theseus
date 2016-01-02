@@ -50,14 +50,20 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
         }).then(function successCallBack(response){
             // File exists, make graph
             $scope.fileDNE.status = false;
+            $scope.hasGraph = true;
             var g = new Dygraph(graphDiv,path,{
             legend: 'always',
             title:'Swipe Frequency vs. Time',
             showRoller: false,
-            ylabel:'Swipe Freq'
+            ylabel:'Swipe Freq',
+            showRangeSelector: true,
+            rangeSelectorHeight: 30,
+            rangeSelectorPlotStrokeColor: 'yellow',
+            rangeSelectorPlotFillColor: 'lightyellow'
         });
         }, function errorCallBack(response){
             // File doesn't exist
+            $scope.hasGraph = false;
             $scope.fileDNE.status = true;
             $scope.fileDNE.file = $scope.activeEvents[0].event_name;
         });
