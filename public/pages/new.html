@@ -3,6 +3,7 @@
        
 
         <!-- Sidebar -->
+<!--
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand" id="DUU">
@@ -50,10 +51,11 @@
                 </li>
             </ul>
         </div>
+-->
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div id="page-content-wrapper" class="container" >
         <div class="col-lg-7 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-9 col-sm-offset-2 col-xs-8 col-xs-offset-2">
             <div class="row">
                 <div class="col-lg-12">
@@ -70,7 +72,33 @@
                         <h1>New Event</h1>
                     </div>
                     <div class="alert alert-danger" ng-init="invalidForm:false" ng-show="invalidForm" role="alert">Please fill out the required fields before submission!</div>
+
                         
+                        <!-- Committee-->
+                                           
+                        <div class="form-group required">
+                            <label for="select" class="col-sm-4 control-label">Committee</label>
+                            <div class="col-sm-8">
+<!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
+                                <select title="Select your committee" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
+                                    <option>Coffee House</option>
+                                    <option>Speakers & Stages</option>
+                                    <option>LDOC</option>
+                                    <option>Visarts</option>
+                                    <option>WXDU</option>
+                                    <option>Small Town Records</option>
+                                    <option>Jazz@</option>
+                                    <option>Innovations</option>
+                                    <option>Freewater Presentations</option>
+                                    <option>Freewater Productions</option>
+                                    <option>Duke Student Broadcasting</option>
+                                    <option>Campus Concerts</option>
+                                    <option>Annual Events</option>
+                                </select>
+<!--                                <p>{{ event.committee }}</p>-->
+                            </div>
+                        </div>
+                            
 <!--                        Event Title-->
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine }">
                             <label for="event-title" class="col-sm-4 control-label">Event Title</label>                 
@@ -108,30 +136,7 @@
                         </div>
                         
 <!--                        Committee-->
-                        
-                        <div class="form-group required">
-                            <label for="select" class="col-sm-4 control-label">Committee</label>
-                            <div class="col-sm-8">
-<!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
-                                <select title="Select your committee" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
-                                    <option>Coffee House</option>
-                                    <option>Speakers & Stages</option>
-                                    <option>LDOC</option>
-                                    <option>Visarts</option>
-                                    <option>WXDU</option>
-                                    <option>Small Town Records</option>
-                                    <option>Jazz@</option>
-                                    <option>Innovations</option>
-                                    <option>Freewater Presentations</option>
-                                    <option>Freewater Productions</option>
-                                    <option>Duke Student Broadcasting</option>
-                                    <option>Campus Concerts</option>
-                                    <option>Annual Events</option>
-                                </select>
-<!--                                <p>{{ event.committee }}</p>-->
-                            </div>
-                        </div>
-                        
+ 
 <!--                        wrapper for datetimepair-->
 <!--                    <div id="datepairExample">-->
                         
@@ -373,7 +378,7 @@
                         <br>
 <!--                        <p>{{ newEventForm.$valid }}</p>-->
                         <div class="pull-right">
-                         <input type="submit" value="Submit" ng-click="submitForm()" class="btn btn-default">
+                         <input type="submit" value="Submit" ng-click="submitForm()" class="btn btn-primary">
                         </div>
                         <br> <br> <br> <br>
                     </form>
