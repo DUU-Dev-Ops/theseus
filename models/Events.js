@@ -21,7 +21,7 @@ var EventSchema = new Schema({
   primary_duu_contacts:	{type: [{contact_name: String, contact_info: String}], required: true, default: []},
   primary_ext_contacts:	{type: [{contact_name: String, contact_info: String}], required: true, default:[]},
   notes: 				{type: String, default: ""},
-  attendance:			{type: [Number], default:[]},
+  attendance:			{type: [{netID: String, class_year: Number, school: String, gender: String, time_swiped: Date, time_since_start: Number}], default:[]},
   attendance_sensor:	{type: [String], default: []},
   sensor_count:			{type: Number, default:0},
   est_cost:				{type: Number, default:0},

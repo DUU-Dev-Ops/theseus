@@ -2,115 +2,119 @@
 	<h1>Event Comparisons for {{committee}}</h1>
 	<br />
 	<h4 ng-if="!(event1 && event2)">Select two events to compare:</h3>
-	<br />
-	<div class="col-md-4 text-center">
-		<select class="form-control" ng-model="event1" ng-options="event as event.event_name for event in events"></select>
+		<br />
+		<div class="col-md-4 text-center">
+			<select class="form-control" ng-model="event1" ng-options="event as event.event_name for event in events"></select>
+		</div>
+		<div class="col-md-4 text-center">
+			<label>
+				<input ng-model="highlightDifferences" type="checkbox"> Show Differences
+			</label>
+		</div>
+		<div class="col-md-4 text-center">
+			<select class="form-control" ng-model="event2" ng-options="event as event.event_name for event in events"></select>
+		</div>
 	</div>
-	<div class="col-md-4 text-center">
-		<label>
-      		<input ng-model="highlightDifferences" type="checkbox"> Show Differences
-    	</label>
-	</div>
-	<div class="col-md-4 text-center">
-		<select class="form-control" ng-model="event2" ng-options="event as event.event_name for event in events"></select>
-	</div>
-</div>
-<table ng-if="event1 && event2" class="table table-hover table-bordered">
-	<thead>
-		<tr>
-			<th class="col-md-2"></th>
-			<th class="text-center col-md-5">{{event1.event_name}}</th>
-			<th class="text-center col-md-5">{{event2.event_name}}</th>
-		</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<th ng-class="getComparisonClass(event1.event_desc, event2.event_desc)">
-		Description
-	</th>
-	<td> {{event1.event_desc}} </td>
-	<td> {{event2.event_desc}} </td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.start_time, event2.start_time)">
-		Start Time
-	</th>
-	<td> {{event1.start_time}}</td>
-	<td> {{event2.start_time}}</td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.end_time, event2.end_time)">
-		End Time
-	</th>
-	<td> {{event1.end_time}} </td>
-	<td> {{event2.end_time}} </td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.loc.location_str, event2.loc.location_str)">
-		Location
-	</th>
-	<td> {{event1.loc.location_desc}} ({{event1.loc.location_str}}) </td>
-	<td> {{event2.loc.location_desc}} ({{event2.loc.location_str}}) </td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.is_public, event2.is_public)">
-		Public?
-	</th>
-	<td> {{event1.is_public ? "Yes" : "No"}} </td>
-	<td> {{event2.is_public ? "Yes" : "No"}} </td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.restricted_access, event2.restricted_access)">
-	 Restricted?
-	</th>
-	<td> {{event1.restricted_access ? "Yes" : "No"}}  </td>
-	<td> {{event2.restricted_access ? "Yes" : "No"}} </td>
-	</tr>
-	<tr>
-	<th ng-class="getComparisonClass(event1.est_cost, event2.est_cost)">
-		Estimated Cost
-	</th>
-	<td> {{event1.est_cost}} </td>
-	<td> {{event2.est_cost}} </td>
-	</tr> 
-	<tr>
-	<th ng-class="getComparisonClass(event1.attendance.length, event2.attendance.length)">
-		Attendance
-	</th>
-	<td> <a href="#/detail/{{event1._id}}">{{event1.sensor_count == 0 ? event1.attendance.length : event1.sensor_count}} (click to view breakdown) </a>
-		<div>
-			
-		</div> 
-	</td>
-	<td> <a href="#/detail/{{event2._id}}">{{event2.sensor_count == 0 ? event2.attendance.length : event2.sensor_count}} (click to view breakdown) </a> </td>
-	</tr> 
-	<tr>
-	<th ng-class="getComparisonClass(event1.notes, event2.notes)">
-		Notes
-	</th>
-	<td> {{event1.notes}} </td>
-	<td> {{event2.notes}} </td>
-	</tr> 
-	<tr>
-	<th ng-class="getComparisonClass(event1.primary_ext_contacts, event2.primary_ext_contacts)">
-		External Contacts
-	</th>
-	<td> <div ng-repeat="contact in event1.primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-	<td> <div ng-repeat="contact in event2.primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-	</tr> 
-	<tr>
-	<th ng-class="getComparisonClass(event1.primary_duu_contacts, event2.primary_duu_contacts)">
-		DUU Contacts
-	</th>
-	<td> <div ng-repeat="contact in event1.primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-	<td> <div ng-repeat="contact in event2.primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-	</tr> 
-	<tr>
-	<th ng-class="getComparisonClass(event1.links, event2.links)">
-		Links
-	</th>
-	<td> <div ng-repeat="link in event1.links"><a href="{{link}}">{{link}}</a></div></td>
-	<td> <div ng-repeat="link in event2.links"><a href="{{link}}">{{link}}</a></div></td>
-	</tr> 
-	</tbody>
-</table>
+	<table ng-if="event1 && event2" class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="col-md-2"></th>
+				<th class="text-center col-md-5">{{event1.event_name}}</th>
+				<th class="text-center col-md-5">{{event2.event_name}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th ng-class="getComparisonClass(event1.event_desc, event2.event_desc)">
+					Description
+				</th>
+				<td> {{event1.event_desc}} </td>
+				<td> {{event2.event_desc}} </td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.start_time, event2.start_time)">
+					Start Time
+				</th>
+				<td> {{event1.start_time}}</td>
+				<td> {{event2.start_time}}</td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.end_time, event2.end_time)">
+					End Time
+				</th>
+				<td> {{event1.end_time}} </td>
+				<td> {{event2.end_time}} </td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.loc.location_str, event2.loc.location_str)">
+					Location
+				</th>
+				<td> {{event1.loc.location_desc}} ({{event1.loc.location_str}}) </td>
+				<td> {{event2.loc.location_desc}} ({{event2.loc.location_str}}) </td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.is_public, event2.is_public)">
+					Public?
+				</th>
+				<td> {{event1.is_public ? "Yes" : "No"}} </td>
+				<td> {{event2.is_public ? "Yes" : "No"}} </td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.restricted_access, event2.restricted_access)">
+					Restricted?
+				</th>
+				<td> {{event1.restricted_access ? "Yes" : "No"}}  </td>
+				<td> {{event2.restricted_access ? "Yes" : "No"}} </td>
+			</tr>
+			<tr>
+				<th ng-class="getComparisonClass(event1.est_cost, event2.est_cost)">
+					Estimated Cost
+				</th>
+				<td> ${{event1.est_cost}} </td>
+				<td> ${{event2.est_cost}} </td>
+			</tr> 
+			<tr>
+				<th ng-class="getComparisonClass(event1.attendance.length, event2.attendance.length)">
+					Attendance
+				</th>
+				<td> <a href="" onclick="$('#breakdown1').slideToggle();">{{event1.sensor_count == 0 ? event1.attendance.length : event1.sensor_count}} (click to view breakdown) </a>
+					<div id="breakdown1" style="display: none;">
+						Hi
+					</div> 
+				</td>
+				<td> <a href="" onclick="$('#breakdown2').slideToggle();">{{event2.sensor_count == 0 ? event2.attendance.length : event2.sensor_count}} (click to view breakdown) </a>
+					<div id="breakdown2" style="display: none;">
+						Hi
+					</div> 
+				</td>
+			</tr> 
+			<tr>
+				<th ng-class="getComparisonClass(event1.notes, event2.notes)">
+					Notes
+				</th>
+				<td> {{event1.notes}} </td>
+				<td> {{event2.notes}} </td>
+			</tr> 
+			<tr>
+				<th ng-class="getComparisonClass(event1.primary_ext_contacts, event2.primary_ext_contacts)">
+					External Contacts
+				</th>
+				<td> <div ng-repeat="contact in event1.primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+				<td> <div ng-repeat="contact in event2.primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+			</tr> 
+			<tr>
+				<th ng-class="getComparisonClass(event1.primary_duu_contacts, event2.primary_duu_contacts)">
+					DUU Contacts
+				</th>
+				<td> <div ng-repeat="contact in event1.primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+				<td> <div ng-repeat="contact in event2.primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+			</tr> 
+			<tr>
+				<th ng-class="getComparisonClass(event1.links, event2.links)">
+					Links
+				</th>
+				<td> <div ng-repeat="link in event1.links"><a href="{{link}}">{{link}}</a></div></td>
+				<td> <div ng-repeat="link in event2.links"><a href="{{link}}">{{link}}</a></div></td>
+			</tr> 
+		</tbody>
+	</table>
