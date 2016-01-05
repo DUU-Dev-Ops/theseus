@@ -149,6 +149,7 @@ app.controller('comparisonController',['$scope', '$routeParams', '$http',functio
             y: function(d){return parseInt(d.y);},
             xAxis: {
               "axisLabel": "Time Since Event Start (min)",
+              "axisLabelDistance": -10
             },
             yAxis: {
               "axisLabel": "Attendance"
