@@ -135,24 +135,46 @@ app.controller('comparisonController',['$scope', '$routeParams', '$http',functio
         console.log(data);
     });
 
+    $scope.line = {
+        chart: {
+            type: "lineChart",
+            height: 200,
+            margin: {
+              top: 20,
+              right: 20,
+              bottom: 40,
+              left: 55
+            },
+            x: function(d){return parseInt(d.x);},
+            y: function(d){return parseInt(d.y);},
+            xAxis: {
+              "axisLabel": "Time Since Event Start (min)",
+            },
+            yAxis: {
+              "axisLabel": "Attendance"
+            }
+        }
+    }
+
     $scope.pie = {
-            chart: {
-                type: 'pieChart',
-                height: 200,
-                x: function(d){return d[0];},
-                y: function(d){return d[1];},
-                showLabels: false,
-                duration: 500,
-                legend: {
-                    margin: {
-                        top: 5,
-                        right: 35,
-                        bottom: 5,
-                        left: 0
-                    }
+        chart: {
+            type: 'pieChart',
+            height: 200,
+            showValues: true,
+            x: function(d){return d[0];},
+            y: function(d){return d[1];},
+            showLabels: false,
+            duration: 500,
+            legend: {
+                margin: {
+                    top: 5,
+                    right: 35,
+                    bottom: 5,
+                    left: 0
                 }
             }
-        };
+        }
+    };
 
     $scope.$watch('selectedEvents', function() {
         for(var i = 0; i < 2; i++) {
@@ -168,11 +190,21 @@ app.controller('comparisonController',['$scope', '$routeParams', '$http',functio
                 $scope.data[i].gender = _.pairs($scope.data[i].gender);
                 $scope.data[i].school = _.pairs($scope.data[i].school);
                 $scope.data[i].year = _.pairs($scope.data[i].year);
-                console.log($scope.data[i].gender);
+
+                var sortedAttendance = _.sortBy($scope.selectedEvents[i].attendance, function(a) {return a.time_since_start});
+                var acc = 0;
+                var attendanceMap = {};
+                $scope.data[i].attendance = [{"x": 0, "y": 0}];
+                _.map(sortedAttendance, function(a) {acc++; attendanceMap[a.time_since_start] = acc;});
+                _.mapObject(attendanceMap, function(v, k) {$scope.data[i].attendance.push({"x": parseFloat(k), "y": parseFloat(v)})});
+                $scope.data[i].attendance = [{values: $scope.data[i].attendance, key: "Attendance"}];
             }
         }
     }, true);
 
+    $scope.revealBreakdown = function() {
+        $('.breakdown').slideToggle(); window.dispatchEvent(new Event('resize'));
+    }
 
     $scope.getComparisonClass = function(v1, v2) {
         if($scope.highlightDifferences) {

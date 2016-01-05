@@ -77,18 +77,18 @@
 				<th ng-class="getComparisonClass(selectedEvents[0].attendance.length, selectedEvents[1].attendance.length)">
 					Attendance
 				</th>
-				<td> <a href="" onclick="$('.breakdown').slideToggle();">{{selectedEvents[0].sensor_count == 0 ? selectedEvents[0].attendance.length : selectedEvents[0].sensor_count}} (click to view breakdown) </a>
+				<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[0].sensor_count == 0 ? selectedEvents[0].attendance.length : selectedEvents[0].sensor_count}} (click to view breakdown) </a>
 					<div class="breakdown" style="display: none;">
+						<nvd3 options="line" data="data[0].attendance"></nvd3>
 						Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
 						<nvd3 options="pie" data="data[0][selectedData]"></nvd3>
 					</div> 
 				</td>
-				<td> <a href="" onclick="$('.breakdown').slideToggle();">{{selectedEvents[1].sensor_count == 0 ? selectedEvents[1].attendance.length : selectedEvents[1].sensor_count}} (click to view breakdown) </a>
+				<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[1].sensor_count == 0 ? selectedEvents[1].attendance.length : selectedEvents[1].sensor_count}} (click to view breakdown) </a>
 					<div class="breakdown" style="display: none;">
-						<div class="breakdown" style="display: none;">
-							Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
+						<nvd3 options="line" data="data[1].attendance"></nvd3>
+						Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
 						<nvd3 options="pie" data="data[1][selectedData]"></nvd3>
-					</div> 
 					</div> 
 				</td>
 			</tr> 
