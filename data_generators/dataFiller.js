@@ -9,8 +9,8 @@ var noau = parseInt(process.argv[4])
 
 for(var i = 0; i < nof; i++) {
 	var start_time = f.date.past();
-	var end_time = new Date(start_time);
-	end_time.setUTCHours(end_time.getUTCHours() + Math.floor(Math.random() * 3));
+	var end_time = new Date(start_time.getTime());
+	end_time.setUTCHours(end_time.getUTCHours() + Math.floor(Math.random() * 6));
 	var attendance = [];
 	for(var j = 0; j <  Math.random() * (noau - noal) + noal; j++) {
 		var time_swiped = f.date.between(start_time, end_time);

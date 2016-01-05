@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'nvd3']);
 
 /* 
  * FRONT END ROUTING
@@ -8,11 +8,11 @@ var app = angular.module('myApp', ['ngRoute']);
  * When new pages/views are added, be sure to update routing below
  * as needed. 
  */
-app.config(function($routeProvider){
-	$routeProvider.when('/',{
-		templateUrl : 'pages/home.html',
-		controller : 'mainController'
-	});
+ app.config(function($routeProvider){
+   $routeProvider.when('/',{
+      templateUrl : 'pages/home.html',
+      controller : 'mainController'
+  });
 
 	// New Event page: 
 	$routeProvider.when('/new',{
@@ -26,11 +26,11 @@ app.config(function($routeProvider){
     });
 
 });
-app.controller('mainController',['$scope','$http',function($scope,$http){
+ app.controller('mainController',['$scope','$http',function($scope,$http){
 
 
-}]);
-app.controller('eventFormController',['$scope','$http',function($scope,$http){
+ }]);
+ app.controller('eventFormController',['$scope','$http',function($scope,$http){
     $scope.invalidForm = false;
     $scope.submitSuccess = false;
     $scope.showNewEventForm = true;
@@ -63,73 +63,117 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
 
     $scope.submitForm=function(){
       //post form to server
-        if($scope.event.restricted_access===''){
-            $scope.event.incomplete_access_option = true;
-            $scope.submitSuccess = false;
-            $scope.invalidForm = true;
-            return;
-        }
-        if($scope.event.is_public === ''){
-            $scope.event.incomplete_public_option = true;
-            $scope.submitSuccess = false;
-            $scope.invalidForm = true;
-            return;
-        }
-        if($scope.newEventForm.$valid){
-            var data = {
-                  committee: $scope.event.committee[0],
-                  event_name: $scope.event.event_name,
-                  loc: { 
-                    location_str: 		$scope.event.loc,
-                    location_desc:		$scope.event.loc_desc,    
-                  },
-                  start_time:			$scope.event.start_time,
-                  end_time:				$scope.event.end_time, 
-                  links:				[$scope.event.links],
-                  event_desc:			$scope.event.event_desc,
-                  primary_duu_contacts:	[$scope.event.primary_duu_contacts],
-                  primary_ext_contacts: [$scope.event.primary_ext_contacts],
-                  notes: 				$scope.event.notes,
-                  attendance:			[],
-                  attendance_sensor:	[],
-                  sensor_count:			0,
-                  est_cost:				0,
-                  restricted_access:	Boolean($scope.event.restricted_access),
-                  is_public:			Boolean($scope.event.is_public),
-            };
-            var response = $http.post('/api/events',data);
-			console.log(data);
-			console.log(response);
-            response.success(function(data,status,headers,config){
-                $scope.submitSuccess = true;
-                $scope.invalidForm = false;
-                $scope.showNewEventForm = false;
-                $scope.serverMsg = data;
-                console.log(data);
-            });
-            response.error(function(data,status,headers,config){
-               alert("post failure"); 
-                console.log(data);
-                console.log(status);
-            });
-        }else{
-            $scope.submitSuccess = false;
-            $scope.invalidForm = true;
-        }
+      if($scope.event.restricted_access===''){
+        $scope.event.incomplete_access_option = true;
+        $scope.submitSuccess = false;
+        $scope.invalidForm = true;
+        return;
+    }
+    if($scope.event.is_public === ''){
+        $scope.event.incomplete_public_option = true;
+        $scope.submitSuccess = false;
+        $scope.invalidForm = true;
+        return;
+    }
+    if($scope.newEventForm.$valid){
+        var data = {
+          committee: $scope.event.committee[0],
+          event_name: $scope.event.event_name,
+          loc: { 
+            location_str: 		$scope.event.loc,
+            location_desc:		$scope.event.loc_desc,    
+        },
+        start_time:			$scope.event.start_time,
+        end_time:				$scope.event.end_time, 
+        links:				[$scope.event.links],
+        event_desc:			$scope.event.event_desc,
+        primary_duu_contacts:	[$scope.event.primary_duu_contacts],
+        primary_ext_contacts: [$scope.event.primary_ext_contacts],
+        notes: 				$scope.event.notes,
+        attendance:			[],
+        attendance_sensor:	[],
+        sensor_count:			0,
+        est_cost:				0,
+        restricted_access:	Boolean($scope.event.restricted_access),
+        is_public:			Boolean($scope.event.is_public),
     };
-    
+    var response = $http.post('/api/events',data);
+    console.log(data);
+    console.log(response);
+    response.success(function(data,status,headers,config){
+        $scope.submitSuccess = true;
+        $scope.invalidForm = false;
+        $scope.showNewEventForm = false;
+        $scope.serverMsg = data;
+        console.log(data);
+    });
+    response.error(function(data,status,headers,config){
+     alert("post failure"); 
+     console.log(data);
+     console.log(status);
+ });
+}else{
+    $scope.submitSuccess = false;
+    $scope.invalidForm = true;
+}
+};
+
 }]);
 
 app.controller('comparisonController',['$scope', '$routeParams', '$http',function($scope, $routeParams, $http){
     $scope.committee = $routeParams.committee;
+    $scope.selectedEvents = [null, null];
+    $scope.data = [{}, {}];
+    $scope.dems = ['gender', 'year', 'school'];
+
     $http.get('/api/events/' + $scope.committee)
-        .success(function(data,status,headers,config){
-            $scope.events = data;
-        })
-        .error(function(data,status,headers,config){
-            alert("Failed to retrieve events for this committee. Errors printed to console.");
-            console.log(data);
-        });
+    .success(function(data,status,headers,config){
+        $scope.events = data;
+    })
+    .error(function(data,status,headers,config){
+        alert("Failed to retrieve events for this committee. Errors printed to console.");
+        console.log(data);
+    });
+
+    $scope.pie = {
+            chart: {
+                type: 'pieChart',
+                height: 200,
+                x: function(d){return d[0];},
+                y: function(d){return d[1];},
+                showLabels: false,
+                duration: 500,
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 35,
+                        bottom: 5,
+                        left: 0
+                    }
+                }
+            }
+        };
+
+    $scope.$watch('selectedEvents', function() {
+        for(var i = 0; i < 2; i++) {
+            if($scope.selectedEvents[i]) {
+                $scope.data[i].gender = {}
+                $scope.data[i].school = {}
+                $scope.data[i].year = {}
+                _.map($scope.selectedEvents[i].attendance, function(a) {
+                    $scope.data[i].gender[a.gender] = ($scope.data[i].gender[a.gender] || 0) + 1;
+                    $scope.data[i].school[a.school] = ($scope.data[i].school[a.school] || 0) + 1;
+                    $scope.data[i].year[a.class_year] = ($scope.data[i].year[a.class_year] || 0) + 1;
+                });
+                $scope.data[i].gender = _.pairs($scope.data[i].gender);
+                $scope.data[i].school = _.pairs($scope.data[i].school);
+                $scope.data[i].year = _.pairs($scope.data[i].year);
+                console.log($scope.data[i].gender);
+            }
+        }
+    }, true);
+
+
     $scope.getComparisonClass = function(v1, v2) {
         if($scope.highlightDifferences) {
             if(v1 instanceof Array && v2 instanceof Array) {
@@ -164,5 +208,5 @@ app.directive('datepicker', function() {
         }
     }
 });
-    
-    
+
+
