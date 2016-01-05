@@ -78,6 +78,7 @@
                             <input type="text" name="eventTitle" ng-model="event.event_name" class="form-control" id="event-title" placeholder="Enter a title for the event" required>
                             <p ng-show="newEventForm.eventTitle.$invalid && !newEventForm.eventTitle.$pristine" class="help-block">Event title is required.</p>
 <!--                                <p>{{ event.event_name }}</p>-->
+
                             </div>
                         </div>
                         
@@ -88,6 +89,7 @@
                             <label for="event-loc" class="col-sm-4 control-label">Event Location</label>                 
                             <div class="col-sm-8">
                             <input type="text" name="eventLoc" ng-model="event.loc" class="form-control" id="event-loc" placeholder="Enter a location for the event" required>
+
                                 <p ng-show="newEventForm.eventLoc.$invalid && !newEventForm.eventLoc.$pristine" class="help-block">Event location is required.</p>
 <!--                                <p>{{ newEventForm.eventLoc.$valid }}</p>-->
                             </div>
@@ -136,26 +138,14 @@
 <!--                        Date-->
                         
                         <div class="form-group required" ng-class="{'has-error':newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine }">
-                            <label for="datepicker" class="col-sm-4 control-label">Date of event</label>
+                            <label for="datepicker_start" class="col-sm-4 control-label">Start Time</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                <input ng-model="event.date" name="eventDate" datepicker type="text" class="form-control"  placeholder="Pick a date" aria-describedby="gl_date" id="datepicker" required>
+                                <input ng-model="event.date_start" name="eventDate" datepicker type="text" class="form-control"  placeholder="Pick a date" aria-describedby="gl_date" id="datepicker_start" required>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar" area-hidden="true"></span>
                                 </span>
-                                </div>
-                                 <p ng-show="newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine" class="help-block">Event date is required.</p>
-<!--                                <p>{{ newEventForm.eventDate.$valid }}</p>-->
-                            </div>                    
-                        </div>
-                        
-<!--                        Time    -->
-                        <div class="form-group required">
-                            <label for="event-time" class="col-sm-4 control-label">Time of event</label>
-                        
-                            <div class="col-sm-8">
-                                <div class="form-inline input-group">
-                                     <select title="From" ng-model="event.start_time" id="event-time-from" class="show-tick form-control" data-size="5" multiple>
+                                     <select title="Pick a time" ng-model="event.start_time" id="event-time-from" class="show-tick form-control" data-size="5" multiple>
                                     <option>8:00 AM</option>
                                     <option>8:30 AM</option>
                                     <option>9:00 AM</option>
@@ -194,8 +184,24 @@
                                     <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-time" area-hidden="true"></span>
                                 </span>
+                                </div>
+                                 <p ng-show="newEventForm.eventDate.$invalid && !newEventForm.eventDate.$pristine" class="help-block">Event date is required.</p>
+<!--                                <p>{{ newEventForm.eventDate.$valid }}</p>-->
+                            </div>                    
+                        </div>
+                        
+<!--                        Time To    -->
+                        <div class="form-group required">
+                            <label for="datepicker_end" class="col-sm-4 control-label">End time</label>
+                        
+                            <div class="col-sm-8">
+                                <div class="form-inline input-group">
+                                     <input ng-model="event.date_end" name="eventDate" datepicker type="text" class="form-control"  placeholder="Pick a date" aria-describedby="gl_date" id="datepicker_end" required>
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar" area-hidden="true"></span>
+                                </span>
                                     
-                                     <select title="To &nbsp;" ng-model="event.end_time" class="form-control show-tick" data-size="5" id="event-time-to" multiple>
+                                     <select title="Pick a time" ng-model="event.end_time" class="form-control show-tick" data-size="5" id="event-time-to" multiple>
                                     <option>8:00 AM</option>
                                     <option>8:30 AM</option>
                                     <option>9:00 AM</option>
@@ -245,6 +251,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                             <input ng-model="event.links" type="text" class="form-control" id="contact" placeholder="https://www.facebook.com/events/">
+
                                 <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
                                
                                 </div>
@@ -260,6 +267,7 @@
                             <label for="event-des" class="col-sm-4 control-label">Public Event Description</label>
                             <div class="col-sm-8" data-example-id="textarea-form-control">
                                 <textarea ng-model="event.event_desc" name="eventDes" class="form-control" rows="5" id="event-des" placeholder="Enter event description for public." required></textarea>
+
                                 <p ng-show="newEventForm.eventDes.$invalid && !newEventForm.eventDes.$pristine" class="help-block">Event description is required.</p>
                              </div>
                             
@@ -289,11 +297,13 @@
                             
                         </div>
 <!--                        Primary contact email-->
+
                          <div class="form-group required" ng-class="{'has-error':newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine }">
                             <label for="email" class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                 <input ng-model="event.primary_duu_contacts.contact_info" name="contactNetID" type="text" class="form-control" id="email" placeholder="NetID" required>
+
                                 <span class="input-group-addon">@duke.edu</span>
                                 </div>
                                 <p ng-show="newEventForm.contactNetID.$invalid && !newEventForm.contactNetID.$pristine" class="help-block">Please enter the netID of the primary contact.</p>
