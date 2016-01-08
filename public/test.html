@@ -18,6 +18,7 @@
         <div class="form-group required" ng-class="{'has-error':newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine }">
                             <label for="contact" class="col-sm-4 control-label">Restricted Access</label>
                             <div class="col-sm-8">
+                                
                                 <form class="form-inline" role="form">
                                     <div class="radio form-group">
                                       <label><input type="radio" name="optradio">Yes</label>
@@ -26,6 +27,7 @@
                                       <label><input type="radio" name="optradio">No</label>
                                     </div>
                                   </form>
+                                
                                 <p ng-show="newEventForm.eventContact.$invalid && !newEventForm.eventContact.$pristine" class="help-block">A primary contact is required.</p>
                             </div>
                             
