@@ -1,36 +1,5 @@
-var app = angular.module('myApp', ['ngRoute', 'nvd3']);
-
-/* 
- * FRONT END ROUTING
- * This is a single page app. Navigating to  different pages based 
- * on the routes below loads a different page template into the 
- * page body and sets a different controller for that view.
- * When new pages/views are added, be sure to update routing below
- * as needed. 
- */
- app.config(function($routeProvider){
-   $routeProvider.when('/',{
-      templateUrl : 'pages/home.html',
-      controller : 'mainController'
-  });
-
-	// New Event page: 
-	$routeProvider.when('/new',{
-		templateUrl : 'pages/new.html',
-		controller : 'eventFormController'
-	});
-
-    $routeProvider.when('/comparison/:committee', {
-        templateUrl: 'pages/comparison.html',
-        controller: 'comparisonController'
-    });
-
-});
-app.controller('mainController',['$scope','$http',function($scope,$http){
-
-
-}]);
-app.controller('eventFormController',['$scope','$http',function($scope,$http){
+var comparisonController = angular.module('comparisonController',[]);
+comparisonController.controller('eventFormController',['$scope','$http',function($scope,$http){
     $scope.invalidForm = false;
     $scope.submitSuccess = false;
     $scope.showNewEventForm = true;
@@ -243,5 +212,3 @@ app.directive('datepicker', function() {
         }
     }
 });
-
-
