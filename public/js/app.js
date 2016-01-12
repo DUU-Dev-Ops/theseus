@@ -1,5 +1,5 @@
 
-var app = angular.module('myApp', ['ngRoute','mainController','eventFormController','committeeDashCtrl','comparisonController']);
+var app = angular.module('myApp', ['ngRoute', 'nvd3', 'mainController','eventFormController','committeeDashCtrl','comparisonController']);
 
 /* 
  * FRONT END ROUTING
