@@ -28,8 +28,8 @@
 			<th ng-class="getComparisonClass(selectedEvents[0].event_desc, selectedEvents[1].event_desc)">
 				Description
 			</th>
-			<td> {{selectedEvents[0].event_desc}} </td>
-			<td> {{selectedEvents[1].event_desc}} </td>
+			<td> {{selectedEvents[0].event_desc}} (ID: {{selectedEvents[0]._id}}) </td>
+			<td> {{selectedEvents[1].event_desc}} (ID: {{selectedEvents[1]._id}})</td>
 		</tr>
 		<tr>
 			<th ng-class="getComparisonClass(selectedEvents[0].start_time, selectedEvents[1].start_time)">

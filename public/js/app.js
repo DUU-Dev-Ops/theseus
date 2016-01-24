@@ -1,5 +1,5 @@
 
-var app = angular.module('myApp', ['ngRoute', 'nvd3', 'mainController','eventFormController','committeeDashCtrl','comparisonController']);
+var app = angular.module('myApp', ['ngRoute', 'nvd3', 'mainController','eventFormController','committeeDashCtrl','comparisonController', 'swipeController']);
 
 /* 
  * FRONT END ROUTING
@@ -26,6 +26,9 @@ app.config(function($routeProvider){
     }).when('/comparison/:committee', {
         templateUrl: 'pages/comparison.html',
         controller: 'comparisonController'
+    }).when('/swipe/:eventID', {
+        templateUrl: 'pages/swipe_input.html',
+        controller: 'swipeController'
     }).otherwise({redirectTo: '/'})
 });
 
