@@ -10,10 +10,12 @@ swipeController.controller('swipeController',['$scope', '$routeParams', '$http',
 			data: {num: $("[name=num]").val()},
 			dataType: "json",
 			success: function(data) {
-				alert(data);
+				$("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
 			},
 			error: function(err) {
 				console.log(err.responseText);
+				$("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
+
 			}
 		});
 	});

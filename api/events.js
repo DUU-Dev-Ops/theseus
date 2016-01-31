@@ -91,6 +91,8 @@ module.exports = {
       },
       function(err, httpResp, body){
         if(err) return next(err);
+        body = JSON.parse(body);
+        if(body["netid"] === null || body["netid"] === undefined) return next({message: "Student not found."});
         var newAttendee = {
           timeSwiped: Date.now(),
           timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
