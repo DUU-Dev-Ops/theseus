@@ -15,7 +15,6 @@ swipeController.controller('swipeController',['$scope', '$routeParams', '$http',
 			error: function(err) {
 				console.log(err.responseText);
 				$("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
-
 			}
 		});
 	});
