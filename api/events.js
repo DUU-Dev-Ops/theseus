@@ -1,5 +1,6 @@
 var Event = require('../models/Events.js');
 var request = require('request');
+var keys = require('../apiKeys.js');
 
 // var sslRootCAs = require('ssl-root-cas/latest')
 // sslRootCAs.inject()
@@ -86,7 +87,7 @@ module.exports = {
         rejectUnauthorized: false,          //Poor security practice, fix?
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'testapi'
+          'x-api-key': keys.identityKey
         }
       },
       function(err, httpResp, body){
