@@ -4,7 +4,7 @@
 	<h4 ng-if="!(selectedEvents[0] && selectedEvents[1])">Select two events to compare:</h4>
 	<br />
 	<div class="col-md-4 text-center">
-		<select class="form-control" ng-model="selectedEvents[0]" ng-options="event as event.event_name for event in events"></select>
+		<select class="form-control" ng-model="selectedEvents[0]" ng-options="event as event.event_name + ' (' + event.start_time+ ') ' for event in events"></select>
 	</div>
 	<div class="col-md-4 text-center">
 		<label>
@@ -12,7 +12,7 @@
 		</label>
 	</div>
 	<div class="col-md-4 text-center">
-		<select class="form-control" ng-model="selectedEvents[1]" ng-options="event as event.event_name for event in events"></select>
+		<select class="form-control" ng-model="selectedEvents[1]" ng-options="event as event.event_name + ' (' + event.start_time+ ') ' for event in events"></select>
 	</div>
 </div>
 <table ng-if="selectedEvents[0] && selectedEvents[1]" class="table table-hover table-bordered">
@@ -79,16 +79,12 @@
 			</th>
 			<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[0].sensor_count == 0 ? selectedEvents[0].attendance.length : selectedEvents[0].sensor_count}} (click to view breakdown) </a>
 				<div class="breakdown" style="display: none;">
-					<nvd3 options="line" data="data[0].attendance"></nvd3>
-					Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
-					<nvd3 options="pie" data="data[0][selectedData]"></nvd3>
+					<attendance-graph data="selectedEvents[0].attendance"></attendance-graph>
 				</div> 
 			</td>
 			<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[1].sensor_count == 0 ? selectedEvents[1].attendance.length : selectedEvents[1].sensor_count}} (click to view breakdown) </a>
 				<div class="breakdown" style="display: none;">
-					<nvd3 options="line" data="data[1].attendance"></nvd3>
-					Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
-					<nvd3 options="pie" data="data[1][selectedData]"></nvd3>
+					<attendance-graph data="selectedEvents[1].attendance"></attendance-graph>
 				</div> 
 			</td>
 		</tr> 

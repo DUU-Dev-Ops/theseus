@@ -19,7 +19,7 @@ for(var i = 0; i < nof; i++) {
 			lastName: f.name.lastName(),
 			netid: f.internet.domainWord().substring(0,3)+f.random.number(), 
 			gradYear: Math.floor(Math.random() * (5)) + 2015 + " " + f.helpers.randomize(["Sprng", "Fall"]),
-			school: f.helpers.randomize(["A&SU", "pratt"]),
+			school: f.helpers.randomize(["A&SU", "Pratt"]),
 			timeSwiped: time_swiped,
 			timeSinceStart: (time_swiped.getTime() - start_time.getTime()) / 60000 
 		});
