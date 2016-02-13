@@ -1,5 +1,5 @@
-var committeeDashCtrl = angular.module('committeeDashCtrl',[]);
-committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+var committeeDashCtrl = angular.module('committeeDashCtrl',['datatables','ngResource']);
+committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams','$resource',function($scope,$http,$routeParams,$resource){
     var currentCommittee = $routeParams.committee;
     $scope.committee = currentCommittee;   
     $scope.activeEvents = [];
@@ -14,7 +14,7 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
           url: '/api/events/'+currentCommittee
           }).then(function successCallback(response) {
             $scope.events = response.data;
-//            console.log($scope.allEvents);
+            console.log($scope.events);
           }, function errorCallback(response) {
             $scope.errorGetEvent = true;
   });
@@ -67,10 +67,13 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
             $scope.fileDNE.status = true;
             $scope.fileDNE.file = $scope.activeEvents[0].event_name;
         });
-        
-        
     };
+    
 }]);
+
+committeeDashCtrl.run(function(DTDefaultOptions){
+    DTDefaultOptions.setDisplayLength(10);
+});
 
 committeeDashCtrl.filter('dateFormat', function($filter)
 {
