@@ -1,31 +1,5 @@
-var app = angular.module('myApp', ['ngRoute']);
-
-/* 
- * FRONT END ROUTING
- * This is a single page app. Navigating to different pages based 
- * on the routes below loads a different page template into the 
- * page body and sets a different controller for that view.
- * When new pages/views are added, be sure to update routing below
- * as needed. 
- */
-app.config(function($routeProvider){
-	$routeProvider.when('/',{
-		templateUrl : 'pages/home.html',
-		controller : 'mainController'
-	});
-
-	// New Event page: 
-	$routeProvider.when('/new',{
-		templateUrl : 'pages/new.html',
-		controller : 'eventFormController'
-	});
-
-});
-app.controller('mainController',['$scope','$http',function($scope,$http){
-
-
-}]);
-app.controller('eventFormController',['$scope','$http',function($scope,$http){
+var eventFormController = angular.module('eventFormController',[]);
+eventFormController.controller('eventFormController',['$scope','$http',function($scope,$http){
     $scope.invalidForm = false;
     $scope.submitSuccess = false;
     $scope.showNewEventForm = true;
@@ -117,23 +91,3 @@ app.controller('eventFormController',['$scope','$http',function($scope,$http){
     };
     
 }]);
-
-app.directive('datepicker', function() {
-    return {
-        restrict: 'A',
-        require : 'ngModel',
-        link : function (scope, element, attrs, ngModelCtrl) {
-            $(function(){
-                element.datepicker({
-                    dateFormat:'mm/dd/yy',
-                    onSelect:function (date) {
-                        ngModelCtrl.$setViewValue(date);
-                        scope.$apply();
-                    }
-                });
-            });
-        }
-    }
-});
-    
-    
