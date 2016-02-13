@@ -1,10 +1,12 @@
 var committeeDashCtrl = angular.module('committeeDashCtrl',['datatables','ngResource']);
 committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams','$resource',function($scope,$http,$routeParams,$resource){
     var currentCommittee = $routeParams.committee;
-    $scope.committee = currentCommittee;   
+    $scope.committee = currentCommittee; 
     $scope.activeEvents = [];
     $scope.errorGetEvent = false;
-    $scope.showActiveForm = false;
+    $scope.showActiveEvents = false;
+    $scope.displayGraph = false;
+    $scope.displayInfo = false;
     $scope.fileDNE = {
         status: false,
         file:""
@@ -14,7 +16,7 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
           url: '/api/events/'+currentCommittee
           }).then(function successCallback(response) {
             $scope.events = response.data;
-            console.log($scope.events);
+//            console.log($scope.events);
           }, function errorCallback(response) {
             $scope.errorGetEvent = true;
   });
@@ -31,13 +33,21 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
             $scope.activeEvents.push(event);
             event.selected = true;
         }
-        $scope.showActiveForm = $scope.activeEvents.length>0;
-        console.log($scope.activeEvents);
+        $scope.showActiveEvents = $scope.activeEvents.length>0;
+//        console.log($scope.activeEvents);
+    };
+    $scope.showInfoFor = function(event){
+        console.log(event);
+        $scope.currentEvent = event;
+        $scope.displayGraph = false;
+        $scope.displayInfo = true;
     };
     
     
     // Make new graph based on event elected. Can now only make graph for one event at a time.
     $scope.showGraph = function(){
+        $scope.displayGraph = true;
+//        $scope.displayInfo = false;
         //    Configure NVD3 Line Graph
                 nv.addGraph(function() {
           var chart = nv.models.lineChart()
