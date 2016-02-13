@@ -3,3 +3,4 @@ public/swipe_data/*
 node_modules
 npm-debug.log
 .DS_Store
+apiKeys.js

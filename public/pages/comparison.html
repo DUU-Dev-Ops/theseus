@@ -1,124 +1,124 @@
 <div class="well text-center col-md-12 ng-scope" style="margin-top:80px"> 
 	<h1>Event Comparisons for {{committee}}</h1>
 	<br />
-	<h4 ng-if="!(selectedEvents[0] && selectedEvents[1])">Select two events to compare:</h3>
-		<br />
-		<div class="col-md-4 text-center">
-			<select class="form-control" ng-model="selectedEvents[0]" ng-options="event as event.event_name for event in events"></select>
-		</div>
-		<div class="col-md-4 text-center">
-			<label>
-				<input ng-model="highlightDifferences" type="checkbox"> Show Differences
-			</label>
-		</div>
-		<div class="col-md-4 text-center">
-			<select class="form-control" ng-model="selectedEvents[1]" ng-options="event as event.event_name for event in events"></select>
-		</div>
+	<h4 ng-if="!(selectedEvents[0] && selectedEvents[1])">Select two events to compare:</h4>
+	<br />
+	<div class="col-md-4 text-center">
+		<select class="form-control" ng-model="selectedEvents[0]" ng-options="event as event.event_name for event in events"></select>
 	</div>
-	<table ng-if="selectedEvents[0] && selectedEvents[1]" class="table table-hover table-bordered">
-		<thead>
-			<tr>
-				<th class="col-md-2"></th>
-				<th class="text-center col-md-5">{{selectedEvents[0].event_name}}</th>
-				<th class="text-center col-md-5">{{selectedEvents[1].event_name}}</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].event_desc, selectedEvents[1].event_desc)">
-					Description
-				</th>
-				<td> {{selectedEvents[0].event_desc}} </td>
-				<td> {{selectedEvents[1].event_desc}} </td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].start_time, selectedEvents[1].start_time)">
-					Start Time
-				</th>
-				<td> {{selectedEvents[0].start_time}}</td>
-				<td> {{selectedEvents[1].start_time}}</td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].end_time, selectedEvents[1].end_time)">
-					End Time
-				</th>
-				<td> {{selectedEvents[0].end_time}} </td>
-				<td> {{selectedEvents[1].end_time}} </td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].loc.location_str, selectedEvents[1].loc.location_str)">
-					Location
-				</th>
-				<td> {{selectedEvents[0].loc.location_desc}} ({{selectedEvents[0].loc.location_str}}) </td>
-				<td> {{selectedEvents[1].loc.location_desc}} ({{selectedEvents[1].loc.location_str}}) </td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].is_public, selectedEvents[1].is_public)">
-					Public?
-				</th>
-				<td> {{selectedEvents[0].is_public ? "Yes" : "No"}} </td>
-				<td> {{selectedEvents[1].is_public ? "Yes" : "No"}} </td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].restricted_access, selectedEvents[1].restricted_access)">
-					Restricted?
-				</th>
-				<td> {{selectedEvents[0].restricted_access ? "Yes" : "No"}}  </td>
-				<td> {{selectedEvents[1].restricted_access ? "Yes" : "No"}} </td>
-			</tr>
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].est_cost, selectedEvents[1].est_cost)">
-					Estimated Cost
-				</th>
-				<td> ${{selectedEvents[0].est_cost}} </td>
-				<td> ${{selectedEvents[1].est_cost}} </td>
-			</tr> 
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].attendance.length, selectedEvents[1].attendance.length)">
-					Attendance
-				</th>
-				<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[0].sensor_count == 0 ? selectedEvents[0].attendance.length : selectedEvents[0].sensor_count}} (click to view breakdown) </a>
-					<div class="breakdown" style="display: none;">
-						<nvd3 options="line" data="data[0].attendance"></nvd3>
-						Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
-						<nvd3 options="pie" data="data[0][selectedData]"></nvd3>
-					</div> 
-				</td>
-				<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[1].sensor_count == 0 ? selectedEvents[1].attendance.length : selectedEvents[1].sensor_count}} (click to view breakdown) </a>
-					<div class="breakdown" style="display: none;">
-						<nvd3 options="line" data="data[1].attendance"></nvd3>
-						Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
-						<nvd3 options="pie" data="data[1][selectedData]"></nvd3>
-					</div> 
-				</td>
-			</tr> 
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].notes, selectedEvents[1].notes)">
-					Notes
-				</th>
-				<td> {{selectedEvents[0].notes}} </td>
-				<td> {{selectedEvents[1].notes}} </td>
-			</tr> 
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].primary_ext_contacts, selectedEvents[1].primary_ext_contacts)">
-					External Contacts
-				</th>
-				<td> <div ng-repeat="contact in selectedEvents[0].primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-				<td> <div ng-repeat="contact in selectedEvents[1].primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-			</tr> 
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].primary_duu_contacts, selectedEvents[1].primary_duu_contacts)">
-					DUU Contacts
-				</th>
-				<td> <div ng-repeat="contact in selectedEvents[0].primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-				<td> <div ng-repeat="contact in selectedEvents[1].primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
-			</tr> 
-			<tr>
-				<th ng-class="getComparisonClass(selectedEvents[0].links, selectedEvents[1].links)">
-					Links
-				</th>
-				<td> <div ng-repeat="link in selectedEvents[0].links"><a href="{{link}}">{{link}}</a></div></td>
-				<td> <div ng-repeat="link in selectedEvents[1].links"><a href="{{link}}">{{link}}</a></div></td>
-			</tr> 
-		</tbody>
-	</table>
+	<div class="col-md-4 text-center">
+		<label>
+			<input ng-model="highlightDifferences" type="checkbox"> Show Differences
+		</label>
+	</div>
+	<div class="col-md-4 text-center">
+		<select class="form-control" ng-model="selectedEvents[1]" ng-options="event as event.event_name for event in events"></select>
+	</div>
+</div>
+<table ng-if="selectedEvents[0] && selectedEvents[1]" class="table table-hover table-bordered">
+	<thead>
+		<tr>
+			<th class="col-md-2"></th>
+			<th class="text-center col-md-5">{{selectedEvents[0].event_name}}</th>
+			<th class="text-center col-md-5">{{selectedEvents[1].event_name}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].event_desc, selectedEvents[1].event_desc)">
+				Description
+			</th>
+			<td> {{selectedEvents[0].event_desc}} (ID: {{selectedEvents[0]._id}}) </td>
+			<td> {{selectedEvents[1].event_desc}} (ID: {{selectedEvents[1]._id}})</td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].start_time, selectedEvents[1].start_time)">
+				Start Time
+			</th>
+			<td> {{selectedEvents[0].start_time}}</td>
+			<td> {{selectedEvents[1].start_time}}</td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].end_time, selectedEvents[1].end_time)">
+				End Time
+			</th>
+			<td> {{selectedEvents[0].end_time}} </td>
+			<td> {{selectedEvents[1].end_time}} </td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].loc.location_str, selectedEvents[1].loc.location_str)">
+				Location
+			</th>
+			<td> {{selectedEvents[0].loc.location_desc}} ({{selectedEvents[0].loc.location_str}}) </td>
+			<td> {{selectedEvents[1].loc.location_desc}} ({{selectedEvents[1].loc.location_str}}) </td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].is_public, selectedEvents[1].is_public)">
+				Public?
+			</th>
+			<td> {{selectedEvents[0].is_public ? "Yes" : "No"}} </td>
+			<td> {{selectedEvents[1].is_public ? "Yes" : "No"}} </td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].restricted_access, selectedEvents[1].restricted_access)">
+				Restricted?
+			</th>
+			<td> {{selectedEvents[0].restricted_access ? "Yes" : "No"}}  </td>
+			<td> {{selectedEvents[1].restricted_access ? "Yes" : "No"}} </td>
+		</tr>
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].est_cost, selectedEvents[1].est_cost)">
+				Estimated Cost
+			</th>
+			<td> ${{selectedEvents[0].est_cost}} </td>
+			<td> ${{selectedEvents[1].est_cost}} </td>
+		</tr> 
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].attendance.length, selectedEvents[1].attendance.length)">
+				Attendance
+			</th>
+			<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[0].sensor_count == 0 ? selectedEvents[0].attendance.length : selectedEvents[0].sensor_count}} (click to view breakdown) </a>
+				<div class="breakdown" style="display: none;">
+					<nvd3 options="line" data="data[0].attendance"></nvd3>
+					Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
+					<nvd3 options="pie" data="data[0][selectedData]"></nvd3>
+				</div> 
+			</td>
+			<td> <a href="" ng-click="revealBreakdown()">{{selectedEvents[1].sensor_count == 0 ? selectedEvents[1].attendance.length : selectedEvents[1].sensor_count}} (click to view breakdown) </a>
+				<div class="breakdown" style="display: none;">
+					<nvd3 options="line" data="data[1].attendance"></nvd3>
+					Demographic: <select class="form-control" ng-model="selectedData"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</select>
+					<nvd3 options="pie" data="data[1][selectedData]"></nvd3>
+				</div> 
+			</td>
+		</tr> 
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].notes, selectedEvents[1].notes)">
+				Notes
+			</th>
+			<td> {{selectedEvents[0].notes}} </td>
+			<td> {{selectedEvents[1].notes}} </td>
+		</tr> 
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].primary_ext_contacts, selectedEvents[1].primary_ext_contacts)">
+				External Contacts
+			</th>
+			<td> <div ng-repeat="contact in selectedEvents[0].primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+			<td> <div ng-repeat="contact in selectedEvents[1].primary_ext_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+		</tr> 
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].primary_duu_contacts, selectedEvents[1].primary_duu_contacts)">
+				DUU Contacts
+			</th>
+			<td> <div ng-repeat="contact in selectedEvents[0].primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+			<td> <div ng-repeat="contact in selectedEvents[1].primary_duu_contacts"><a href="mailto:{{contact.contact_info}}">{{contact.contact_name}}</a></div></td>
+		</tr> 
+		<tr>
+			<th ng-class="getComparisonClass(selectedEvents[0].links, selectedEvents[1].links)">
+				Links
+			</th>
+			<td> <div ng-repeat="link in selectedEvents[0].links"><a href="{{link}}">{{link}}</a></div></td>
+			<td> <div ng-repeat="link in selectedEvents[1].links"><a href="{{link}}">{{link}}</a></div></td>
+		</tr> 
+	</tbody>
+</table>

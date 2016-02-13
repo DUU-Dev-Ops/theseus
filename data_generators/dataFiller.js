@@ -15,12 +15,13 @@ for(var i = 0; i < nof; i++) {
 	for(var j = 0; j <  Math.random() * (noau - noal) + noal; j++) {
 		var time_swiped = f.date.between(start_time, end_time);
 		attendance.push({
-			netID: f.internet.domainWord().substring(0,3)+f.random.number(), 
-			class_year: Math.floor(Math.random() * (5)) + 2015,
-			school: f.helpers.randomize(["trinity", "pratt"]),
-			gender: f.helpers.randomize(["M", "F"]),
-			time_swiped: time_swiped,
-			time_since_start: (time_swiped.getTime() - start_time.getTime()) / 60000 
+			firstName: f.name.firstName(),
+			lastName: f.name.lastName(),
+			netid: f.internet.domainWord().substring(0,3)+f.random.number(), 
+			gradYear: Math.floor(Math.random() * (5)) + 2015 + " " + f.helpers.randomize(["Sprng", "Fall"]),
+			school: f.helpers.randomize(["A&SU", "pratt"]),
+			timeSwiped: time_swiped,
+			timeSinceStart: (time_swiped.getTime() - start_time.getTime()) / 60000 
 		});
 	}
 
