@@ -6,7 +6,7 @@
     <div class="row">
     <div class="col-md-5">
         <div class="row">
-        <div class="panel panel-info">
+        <div class="panel panel-info" style="height: 685px;">
             <div class="panel-heading">
                 <h4>Event Dashboard</h4>
             </div>
@@ -62,15 +62,27 @@
             </div>
         </div>
     </div>
+<!--        DVD3 Graph-->
     <div class="col-md-7">
-        <div class="panel panel-warning">
+        <div class="panel panel-warning" style="height: 825px;">
             <div class="panel-heading">
                 <h4>Swipe Data Analysis</h4>
             </div>
             <div class="panel-body">
     <!--        <p class="text-muted" ng-show = "activeEvent">{{ activeEvent.start_time | dateFormat }} &nbsp; to &nbsp; {{ activeEvent.end_time | dateFormat }}</p>-->
                  <div class="alert alert-danger" ng-show="fileDNE.status" role="alert">No data file for the following event: {{ fileDNE.file }}. </div>
-                <div id="graphdiv"></div>
+<!--                <nvd3 options="line" data="eventData"></nvd3>-->
+                <style>
+
+                #chart svg {
+                  height: 400px;
+                }
+
+                </style>
+
+                <div id="chart">
+                    <svg></svg>
+                </div>
                 <br>
                 <div class="alert alert-success" ng-show="hasGraph" role="alert">Click and drag range selector to zoom in/out. </div>
             </div>
