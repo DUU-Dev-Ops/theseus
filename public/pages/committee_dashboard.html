@@ -1,35 +1,56 @@
 <div class="container" style = "margin-top: 60px;">
     <div class="page-header">
-        <h2>{{ committee }}</h2>
+        <div class="container">
+            <div class="col-sm-5">
+                <div class="row">
+                 <h1>{{ committee }}</h1>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                     <ul class="nav nav-pills pull-right" role="tablist" style="padding-top:20px;">
+                      <li role="presentation" class="active"><a href="">Dashboard</span></a></li>
+                      <li role="presentation"><a ng-href="/#/comparison/{{committee}}">Compare Events</a></li>
+                      <li role="presentation"><a href="">All Events <span class="badge">3</span></a></li>
+                    </ul>
+                </div>
+            </div>
+       
+         
+            </div>
     </div>
+  
     <div class="alert alert-danger" ng-show="errorGetEvent" role="alert">Error loading event data.</div>
     <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="row">
-        <div class="panel panel-info">
+        <div class="panel panel-info" style="height: 685px;">
             <div class="panel-heading">
                 <h4>Event Dashboard</h4>
             </div>
             <div class="panel-body">
                 <p ng-show="events.length==0">No events available.</p>
-                <p class="text-muted" ng-show="allEvents.length>0">*Click on individual event to view swipe history.</p>
-                <table class="table table-hover" id="dataTable" ng-show="events.length>0">
-                    <thead>
-                        <tr>
-                            <th>Include</th>
-                            <th>Event</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="event in events" >
-                            <td> <label><input type="checkbox" ng-click="select(event)" ></label></td>
+                <p class="text-muted" ng-show="events.length>0">*Click on individual event to view swipe history.</p>
+<!--                Insert datatable here-->
+                     <table datatable="ng" class="row-border hover">
+                        <thead>
+                            <tr>
+                               <th>Event</th>
+                                <th>Date</th>
+                                <th>Select</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="event in events" ng-click="showInfoFor(event)">
+                            
                             <td>{{ event.event_name }}</td>
                             <td>{{ event.start_time | dateFormat }}</td>
+                            <td> <label><input type="checkbox" ng-click="select(event)" ></label></td>
                         </tr>
-                    </tbody>
-                <!--    <p ng-repeat="event in events.data">{{ event._id }}</p>-->
-                </table>
+                        </tbody>
+                    </table>
+<!--                datatable ends-->
             </div>
         </div>
         </div>
@@ -39,8 +60,8 @@
                     <h4>Selected Events</h4>
                 </div>
                 <div class="panel-body">
-                    <p text-muted ng-show="!showActiveForm">No event selected.</p>
-                    <table class="table table-hover" id="dataTable2" ng-show="showActiveForm">
+                    <p text-muted ng-show="!showActiveEvents">No event selected.</p>
+                    <table class="table table-hover" id="dataTable2" ng-show="showActiveEvents">
                     <thead>
                         <tr>
                             <th>Event</th>
@@ -53,22 +74,83 @@
                             <td>{{ event.start_time | dateFormat }}</td>
                         </tr>
                     </tbody>
-                <!--    <p ng-repeat="event in events.data">{{ event._id }}</p>-->
                 </table>
-                    <input type="button" class="btn btn-success btn-block" value="Submit" ng-click="showGraph()" ng-show="showActiveForm">
+                    <input type="button" class="btn btn-success btn-block" value="View Data" ng-click="showGraph()" ng-show="showActiveEvents">
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="panel panel-warning">
+<!--        DVD3 Graph-->
+    <div class="col-md-7">
+        <div class="panel panel-warning" style="height: 825px;">
             <div class="panel-heading">
-                <h4>Swipe Data Analysis</h4>
+                <h4>Event Data</h4>
             </div>
             <div class="panel-body">
-    <!--        <p class="text-muted" ng-show = "activeEvent">{{ activeEvent.start_time | dateFormat }} &nbsp; to &nbsp; {{ activeEvent.end_time | dateFormat }}</p>-->
+            <p class="text-muted" ng-show = "!hasGraph">No event selected.</p>
                  <div class="alert alert-danger" ng-show="fileDNE.status" role="alert">No data file for the following event: {{ fileDNE.file }}. </div>
-                <div id="graphdiv"></div>
+<!--                <nvd3 options="line" data="eventData"></nvd3>-->
+                <style>
+
+                #chart svg {
+                  height: 400px;
+                }
+
+                </style>
+
+                <div id="chart" ng-show="displayGraph">
+                    <svg></svg>
+                </div>
+                <div ng-show="displayInfo">
+                    <table class='table borderless' id="borderless">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Event Title </td>
+                            <td>{{currentEvent.event_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date Time </td>
+                            <td>{{currentEvent.start_time | dateFormat}} to {{currentEvent.end_time | dateFormat }}</td>
+                        </tr>
+                        <tr>
+                            <td>Public </td>
+                            <td>{{currentEvent.is_public}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description </td>
+                            <td>{{currentEvent.event_desc}}</td>
+                        </tr>
+                        <tr>
+                            <td>External Link </td>
+                            <td><a ng-href="{{currentEvent.links[0]}}"</td>
+                        </tr>
+                        <tr>
+                            <td>Primary DUU Contact </td>
+                            <td><a ng-href="mailto:{{currentEvent.primary_duu_contacts[0].contact_info}}@duke.edu">{{currentEvent.primary_duu_contacts[0].contact_info}}</a>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>External Contact </td>
+                            <td><a ng-href="mailto:{{currentEvent.primary_ext_contacts[0].contact_info}}@duke.edu">{{currentEvent.primary_ext_contacts[0].contact_info}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Attendance </td>
+                            <td>{{currentEvent.censor_count}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                    
+                </div>
+                
                 <br>
                 <div class="alert alert-success" ng-show="hasGraph" role="alert">Click and drag range selector to zoom in/out. </div>
             </div>
@@ -83,15 +165,10 @@
 
 <!--
 <script type="text/javascript">
-//    g = new Dygraph( document.getElementById("graphdiv"),
-                    
-//                   )
-//    $(document).ready(function(){
-        // Not working
-//        $("tr").click(function(){
-//            $(this).fadeOut();
-//        });
-//    });
-//    $("#dataTable").DataTable();
+   $(document).ready(function() {
+    $('#example').DataTable( {
+        "ajax": '../ajax/data/arrays.txt'
+    } );
+} );
 </script>
 -->

@@ -8,6 +8,7 @@ DUU's Web Platform for managing events, attendance, scheduling, and more.
 
 1. Have Node.js, NPM, and MongoDb installed.
 1. Run `npm install`.
+1. Run `bower install angular-datatables`
 1. Run `mongod` from another terminal or `sudo service mongod start` on Linux.
 1. Run `npm start`.
 1. Visit and test `http://localhost:8080`
