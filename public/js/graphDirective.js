@@ -1,7 +1,7 @@
 angular.module('attendanceGraph',[]).directive('attendanceGraph', function() {
 	return {
 		restrict: 'E',
-		template: '<nvd3 options="line" data="graphData.attendance"></nvd3> Demographic: <select class="form-control" ng-model="selectedProperty"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</option></select> <nvd3 options="pie" data="graphData[selectedProperty]"></nvd3>',	
+		template: '<nvd3 options="line" data="graphData.attendance" api="nvd3api"></nvd3> Demographic: <select class="form-control" ng-model="selectedProperty"><option value="" disabled selected>-- Select a Property --</option><option ng-repeat="dem in dems" value={{dem}}>{{dem}}</option></select> <nvd3 options="pie" data="graphData[selectedProperty]"></nvd3>',	
 		scope: {
 			data: "="
 		},
@@ -45,7 +45,8 @@ angular.module('attendanceGraph',[]).directive('attendanceGraph', function() {
 						"axisLabelDistance": -10
 					},
 					yAxis: {
-						"axisLabel": "Attendance"
+						"axisLabel": "Attendance",
+						"axisLabelDistance": -12
 					}
 				}
 			}

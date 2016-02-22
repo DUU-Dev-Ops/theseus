@@ -24,7 +24,7 @@
     <div class="row">
     <div class="col-md-5">
         <div class="row">
-        <div class="panel panel-info" style="height: 685px;">
+        <div class="panel panel-info" style="min-height: 825px;">
             <div class="panel-heading">
                 <h4>Event Dashboard</h4>
             </div>
@@ -32,21 +32,17 @@
                 <p ng-show="events.length==0">No events available.</p>
                 <p class="text-muted" ng-show="events.length>0">*Click on individual event to view swipe history.</p>
 <!--                Insert datatable here-->
-                     <table datatable="ng" class="row-border hover">
+                     <table id="eventTable" datatable="ng" class="row-border hover">
                         <thead>
                             <tr>
                                <th>Event</th>
                                 <th>Date</th>
-                                <th>Select</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="event in events" ng-click="showInfoFor(event)">
-                            
+                        <tr ng-repeat="event in events" ng-click="showInfoFor(event)" ng-style="{ 'background-color': currentEvent == event ? '#d9edf7' : 'initial' }">
                             <td>{{ event.event_name }}</td>
                             <td>{{ event.start_time | dateFormat }}</td>
-                            <td> <label><input type="checkbox" ng-click="select(event)" ></label></td>
                         </tr>
                         </tbody>
                     </table>
@@ -54,54 +50,20 @@
             </div>
         </div>
         </div>
-        <div class="row">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4>Selected Events</h4>
-                </div>
-                <div class="panel-body">
-                    <p text-muted ng-show="!showActiveEvents">No event selected.</p>
-                    <table class="table table-hover" id="dataTable2" ng-show="showActiveEvents">
-                    <thead>
-                        <tr>
-                            <th>Event</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="event in activeEvents" >
-                            <td>{{ event.event_name }}</td>
-                            <td>{{ event.start_time | dateFormat }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                    <input type="button" class="btn btn-success btn-block" value="View Data" ng-click="showGraph()" ng-show="showActiveEvents">
-                </div>
-            </div>
-        </div>
+       
     </div>
 <!--        DVD3 Graph-->
     <div class="col-md-7">
-        <div class="panel panel-warning" style="height: 825px;">
+        <div class="panel panel-warning" style="min-height: 825px;">
             <div class="panel-heading">
                 <h4>Event Data</h4>
             </div>
             <div class="panel-body">
-            <p class="text-muted" ng-show = "!hasGraph">No event selected.</p>
-                 <div class="alert alert-danger" ng-show="fileDNE.status" role="alert">No data file for the following event: {{ fileDNE.file }}. </div>
-<!--                <nvd3 options="line" data="eventData"></nvd3>-->
-                <style>
-
-                #chart svg {
-                  height: 400px;
-                }
-
-                </style>
-
-                <div id="chart" ng-show="displayGraph">
-                    <svg></svg>
+            <p class="text-muted" ng-show = "!currentEvent">No event selected.</p>
+                <div ng-style="{ visibility: !currentEvent ? 'hidden' : 'normal' }" >
+                    <attendance-graph data="currentEvent.attendance"></attendance-graph>
                 </div>
-                <div ng-show="displayInfo">
+                <div ng-show="currentEvent">
                     <table class='table borderless' id="borderless">
                         <thead>
                         <tr>
@@ -142,7 +104,7 @@
                         </tr>
                         <tr>
                             <td>Attendance </td>
-                            <td>{{currentEvent.censor_count}}</a>
+                            <td>{{currentEvent.sensor_count == 0 ? currentEvent.attendance.length : selectedEvents[0].sensor_count}}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -152,7 +114,6 @@
                 </div>
                 
                 <br>
-                <div class="alert alert-success" ng-show="hasGraph" role="alert">Click and drag range selector to zoom in/out. </div>
             </div>
         </div>
     </div>
