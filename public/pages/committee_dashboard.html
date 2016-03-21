@@ -64,7 +64,7 @@
                     <attendance-graph data="currentEvent.attendance"></attendance-graph>
                 </div>
                 <div ng-show="currentEvent">
-                    <table class='table borderless' id="borderless">
+                    <table ng-show="!edit_enabled" class='table borderless' id="borderless">
                         <thead>
                         <tr>
                             <th>Item</th>
@@ -109,8 +109,63 @@
                         </tr>
                     </tbody>
                     </table>
+        
+                    <form novalidate ng-show = "edit_enabled">
+                    <table class='table borderless' id="borderless">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Event Title </td>
+                            <td><input class="form-control" type="text" placeholder="{{currentEvent.event_name}}" ng-model="currentEvent.event_name"></td>
+                        </tr>
+                        <tr>
+                            <td>Start Time </td>
+                            <td>
+                                <input class="form-control" type="text" placeholder="{{currentEvent.start_time | dateFormat }}" ng-model="currentEvent.start_time">
+                            </td>
+                                
+                        </tr>
+                         <tr>
+                            <td>End Time </td>
+                            <td> <input class="form-control" type="text" placeholder="{{currentEvent.end_time | dateFormat }}" ng-model="currentEvent.end_time"></td>
+                        </tr>
+                        <tr>
+                            <td>Public </td>
+                            <td><input class="form-control" type="text" placeholder="{{currentEvent.is_public}}" ng-model="currentEvent.is_public"></td>
+                        </tr>
+                        <tr>
+                            <td>Description </td>
+                            <td><textarea class="form-control" type="text" placeholder="{{currentEvent.event_desc}}" ng-model="currentEvent.event_desc"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>External Link </td>
+                            <td><input class="form-control" type="text" placeholder="{{currentEvent.links[0]}}" ng-model="currentEvent.links[0]"></td>
+                        </tr>
+                        <tr>
+                            <td>Primary DUU Contact </td>
+                            <td><input class="form-control" type="text" placeholder="{{currentEvent.primary_duu_contacts[0].contact_info}}" ng-model="currentEvent.primary_duu_contacts[0].contact_info"></td>
+                        </tr>
+                         <tr>
+                            <td>External Contact </td>
+                             <td><input class="form-control" type="text" placeholder="{{currentEvent.primary_ext_contacts[0].contact_info}}" ng-model="currentEvent.primary_ext_contacts[0].contact_info"></td>
+                        </tr>
+                        <tr>
+                            <td>Attendance </td>
+                            <td>{{currentEvent.sensor_count == 0 ? currentEvent.attendance.length : selectedEvents[0].sensor_count}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
 
+                    </form>
                     
+                <button ng-show="!edit_enabled" class="btn btn-warning pull-right" ng-click = "edit_enabled = !edit_enabled">Edit Event</button>
+                <button ng-show="edit_enabled" class="btn btn-success pull-right" ng-click = "submitForm()">Submit Edit</button>
                 </div>
                 
                 <br>

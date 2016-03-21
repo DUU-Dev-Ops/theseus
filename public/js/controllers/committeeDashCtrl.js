@@ -7,6 +7,7 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
     $scope.showActiveEvents = false;
     $scope.displayGraph = false;
     $scope.displayInfo = false;
+    $scope.edit_enabled = false;
     $scope.fileDNE = {
         status: false,
         file:""
@@ -43,6 +44,10 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
        // $scope.displayGraph = false;
        // $scope.displayInfo = true;
     };
+    
+    $scope.submitForm = function(){
+        
+    };
 }]);
 
 committeeDashCtrl.run(function(DTDefaultOptions){
@@ -55,44 +60,10 @@ committeeDashCtrl.filter('dateFormat', function($filter)
  {
   if(input == null){ return ""; } 
  
-  var _date = $filter('date')(new Date(input), 'MM/dd/yyyy');
+  var _date = $filter('date')(new Date(input), 'MM/dd/yyyy @h:mma');
  
   return _date.toUpperCase();
 
  };
 });
 
-/**************************************
- * Simple test data generator
- */
-function sinAndCos() {
-  var sin = [],sin2 = [],
-      cos = [];
-
-  //Data is represented as an array of {x,y} pairs.
-  for (var i = 0; i < 100; i++) {
-    sin.push({x: i, y: Math.sin(i/10)});
-    sin2.push({x: i, y: Math.sin(i/10) *0.25 + 0.5});
-    cos.push({x: i, y: .5 * Math.cos(i/10)});
-  }
-
-  //Line chart data should be sent as an array of series objects.
-  return [
-    {
-      values: sin,      //values - represents the array of {x,y} data points
-      key: 'Sine Wave', //key  - the name of the series.
-      color: '#ff7f0e'  //color - optional: choose your own line color.
-    },
-    {
-      values: cos,
-      key: 'Cosine Wave',
-      color: '#2ca02c'
-    },
-    {
-      values: sin2,
-      key: 'Another sine wave',
-      color: '#7777ff',
-      area: true      //area - set to true if you want this line to turn into a filled area chart.
-    }
-  ];
-}
