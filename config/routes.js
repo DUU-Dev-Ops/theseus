@@ -13,6 +13,7 @@ module.exports = function(app) {
   app.get('/api/events/:committee', events.find);  
   app.get('/api/event/:id', events.findByID);
   app.post('/api/event/:id/attendee', events.addAttendee);
-  app.post('/api/event/:id/swipe', events.addSwipe)
+  app.post('/api/event/:id/swipe', events.addSwipe);
+  app.post('/api/event/:id/update',events.update);
   // TODO: Add more
 };

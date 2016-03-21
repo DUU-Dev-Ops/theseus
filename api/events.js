@@ -6,6 +6,7 @@ var keys = require('../apiKeys.js');
 // sslRootCAs.inject()
 
 module.exports = {
+    
   create: function(req, res, next) { 
     var newEvent = new Event(req.body);
     newEvent.save(function(err, event) {
@@ -16,6 +17,41 @@ module.exports = {
       }
     });
   },
+    
+  update: function(req,res,next){
+    var event = new Event(req.body);
+    Event.update(
+        {_id: req.params.id},
+        { 
+          committee:            event.committee,
+          event_name:			event.event_name,
+          loc:                  event.loc,    
+          start_time:			event.start_time,
+          end_time:				event.end_time, 
+          links:				event.links,
+          event_desc:			event.event_desc,
+          primary_duu_contacts:	event.primary_duu_contacts,
+          primary_ext_contacts:	event.primary_ext_contacts,
+          notes: 				event.notes,
+          attendance:			event.attendance,
+          attendance_sensor:	event.attendance_sensor,
+          sensor_count:			event.sensor_count,
+          est_cost:				event.est_cost,
+          restricted_access:	event.restricted_access,
+          is_public:			event.is_public },
+        {
+            upsert: false,
+            multi: false
+        },
+        function(err,writeResult){
+            if(err){
+                return next(err);
+            }
+            res.json(writeResult);
+        }
+    );
+  },
+    
   find: function(req,res,next) {
     var currentcommittee = req.params.committee;
     Event.find({ committee: currentcommittee }, function(err, events) {
@@ -25,6 +61,7 @@ module.exports = {
       res.json(events);
     });
   },
+    
   findByID: function(req,res,next) {
     var currentID = req.params.id;
     Event.findOne({ _id: currentID }, function(err, IDs) {
