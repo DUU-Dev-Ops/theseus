@@ -63,6 +63,9 @@
                 <div ng-style="{ visibility: !currentEvent ? 'hidden' : 'normal' }" >
                     <attendance-graph data="currentEvent.attendance"></attendance-graph>
                 </div>
+                <br>
+                 <div class="alert alert-success" ng-init="submitSuccess:false" ng-show="submitSuccess" role="alert">Event {{ currentEvent.event_name }} is successfully updated.</div>
+                <div class="alert alert-danger" ng-init="submitFailure:false" ng-show="submitFailure" role="alert">Event {{ currentEvent.event_name }} update failed. Please contact administrator.</div>
                 <div ng-show="currentEvent">
                     <table ng-show="!edit_enabled" class='table borderless' id="borderless">
                         <thead>

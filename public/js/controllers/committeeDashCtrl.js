@@ -39,14 +39,28 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
     };
     $scope.showInfoFor = function(event){
         console.log(event);
-       // $scope.hasGraph = true;
         $scope.currentEvent = event;
-       // $scope.displayGraph = false;
-       // $scope.displayInfo = true;
+        $scope.submitFailure = false;
+        $scope.submitSuccess = false;
     };
     
     $scope.submitForm = function(){
-        
+        var event = $scope.currentEvent;
+        var response = $http.post('/api/event/'+ event._id+'/update',event);
+			console.log(event);
+			console.log(response);
+            response.success(function(data,status,headers,config){
+                $scope.submitSuccess = true;
+                $scope.edit_enabled = false;
+                $scope.serverMsg = data;
+                console.log(data);
+            });
+            response.error(function(data,status,headers,config){
+               alert("post failure"); 
+                $scope.submitFailure = true;
+                console.log(data);
+                console.log(status);
+            });
     };
 }]);
 

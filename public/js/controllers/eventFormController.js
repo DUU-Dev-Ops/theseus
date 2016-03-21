@@ -70,19 +70,14 @@ eventFormController.controller('eventFormController',['$scope','$http',function(
                   is_public:			Boolean($scope.event.is_public),
             };
             var response = $http.post('/api/events',data);
-			console.log(data);
-			console.log(response);
             response.success(function(data,status,headers,config){
                 $scope.submitSuccess = true;
                 $scope.invalidForm = false;
                 $scope.showNewEventForm = false;
                 $scope.serverMsg = data;
-                console.log(data);
             });
             response.error(function(data,status,headers,config){
                alert("post failure"); 
-                console.log(data);
-                console.log(status);
             });
         }else{
             $scope.submitSuccess = false;
