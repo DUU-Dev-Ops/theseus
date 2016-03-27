@@ -11,7 +11,7 @@
                      <ul class="nav nav-pills pull-right" role="tablist" style="padding-top:20px;">
                       <li role="presentation" class="active"><a href="">Dashboard</span></a></li>
                       <li role="presentation"><a ng-href="/#/comparison/{{committee}}">Compare Events</a></li>
-                      <li role="presentation"><a href="">All Events <span class="badge">3</span></a></li>
+                      <li role="presentation"><a href="/#/swipe/{{currentEvent._id}}">Swipe Page</a></li>
                     </ul>
                 </div>
             </div>
@@ -26,7 +26,7 @@
         <div class="row">
         <div class="panel panel-info" style="min-height: 825px;">
             <div class="panel-heading">
-                <h4>Event Dashboard</h4>
+                <h4>Event Selection</h4>
             </div>
             <div class="panel-body">
                 <p ng-show="events.length==0">No events available.</p>
@@ -54,7 +54,7 @@
     </div>
 <!--        DVD3 Graph-->
     <div class="col-md-7">
-        <div class="panel panel-warning" style="min-height: 825px;">
+        <div class="panel panel-success" style="min-height: 825px;">
             <div class="panel-heading">
                 <h4>Event Data</h4>
             </div>
@@ -109,7 +109,7 @@
                         </tr>
                     </tbody>
                     </table>
-
+		 <button ng-click="genCSV()" class="btn btn-success"> Download Attendance Data </button> &nbsp &nbsp<button class="btn btn-primary" ng-click="genDGDump()"> Generate DukeGroups Dump </button> 
                     
                 </div>
                 

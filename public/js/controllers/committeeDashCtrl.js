@@ -16,6 +16,7 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
           url: '/api/events/'+currentCommittee
           }).then(function successCallback(response) {
             $scope.events = response.data;
+		$scope.showInfoFor($scope.events[0]);
 //            console.log($scope.events);
           }, function errorCallback(response) {
             $scope.errorGetEvent = true;
@@ -43,6 +44,28 @@ committeeDashCtrl.controller('committeeDashCtrl',['$scope','$http','$routeParams
        // $scope.displayGraph = false;
        // $scope.displayInfo = true;
     };
+	$scope.genDGDump = function() {
+		var output = "";
+		var attendance = $scope.currentEvent.attendance;
+		for(var i = 0; i < attendance.length; i++) {
+			output += attendance[i].firstName.toLowerCase() + "." + attendance[i].lastName.toLowerCase() + "@duke.edu\n";
+		}
+		var blob = new Blob([output], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "AttendanceData.txt");	
+		
+	};
+
+	$scope.genCSV = function() {
+                var output = "First Name, Last Name, NetID, Grad Year, School, Time Swiped, Time Since Start\n";
+                var attendance = $scope.currentEvent.attendance;
+                for(var i = 0; i < attendance.length; i++) {
+                        output += [attendance[i].firstName, attendance[i].lastName, attendance[i].netid, attendance[i].gradYear, attendance[i].school, attendance[i].timeSwiped, attendance[i].timeSinceStart].join(',') + "\n";
+                }
+                var blob = new Blob([output], {type: "text/csv;charset=utf-8"});
+                saveAs(blob, "AttendanceData.csv");
+
+        };
+
 }]);
 
 committeeDashCtrl.run(function(DTDefaultOptions){
