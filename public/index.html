@@ -66,7 +66,9 @@
 <!--   Angular/ jQuery Datatable -->
     <script src="js/angular-datatables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
-    
+
+	<script src="js/focusIf.min.js"></script>   
+	<script src="js/saveAs.js"></script> 
 <body ng-controller="mainController">
 
 	 <div id="wrapper" class="row">
@@ -80,7 +82,7 @@
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
 	                  </button>
-	                <a class="navbar-brand" href="/#/" id="menu-toggle" >Duke University Union</a>
+	                <a class="navbar-brand" href="/#/" >Duke University Union</a>
 
 	                </div>
 
@@ -110,6 +112,9 @@
 			<div ng-view></div>
 		</div>
 		</div>
+  <footer align="center" style="width: 100%">
+      <p><a href="/privacy.html">Privacy policy</a></p>
+  </footer>
 </body>
 
 </html>

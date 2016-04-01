@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 
 var config = {
-  url: process.env.MONGO_URI || 'mongodb://localhost/theseus'
+  url: process.env.MONGO_URI || 'mongodb://localhost/deploy'
 }; // The default port of MongoDB is 27017
 
 module.exports = function() {

@@ -1,4 +1,4 @@
-var swipeController = angular.module('swipeController',[]);
+var swipeController = angular.module('swipeController',['focus-if']);
 swipeController.controller('swipeController',['$scope', '$routeParams', '$http', function($scope, $routeParams, $http){
 	$scope.eventID = $routeParams.eventID;
 	$('#swipeForm').submit(function(e) {
@@ -19,6 +19,9 @@ swipeController.controller('swipeController',['$scope', '$routeParams', '$http',
 			error: function(err) {
 				console.log(err.responseText);
 				$("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
+			},
+			complete: function() {
+				$("input[name=num]").val("");
 			}
 		});
 	});

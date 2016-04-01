@@ -11,7 +11,7 @@
                      <ul class="nav nav-pills pull-right" role="tablist" style="padding-top:20px;">
                       <li role="presentation" class="active"><a href="">Dashboard</span></a></li>
                       <li role="presentation"><a ng-href="/#/comparison/{{committee}}">Compare Events</a></li>
-                      <li role="presentation"><a href="">All Events <span class="badge">3</span></a></li>
+                      <li role="presentation"><a href="/#/swipe/{{currentEvent._id}}">Swipe Page</a></li>
                     </ul>
                 </div>
             </div>
@@ -26,7 +26,7 @@
         <div class="row">
         <div class="panel panel-info" style="min-height: 825px;">
             <div class="panel-heading">
-                <h4>Event Dashboard</h4>
+                <h4>Event Selection</h4>
             </div>
             <div class="panel-body">
                 <p ng-show="events.length==0">No events available.</p>
@@ -54,7 +54,7 @@
     </div>
 <!--        DVD3 Graph-->
     <div class="col-md-7">
-        <div class="panel panel-warning" style="min-height: 825px;">
+        <div class="panel panel-success" style="min-height: 825px;">
             <div class="panel-heading">
                 <h4>Event Data</h4>
             </div>
@@ -67,6 +67,8 @@
                  <div class="alert alert-success" ng-init="submitSuccess:false" ng-show="submitSuccess" role="alert">Event {{ currentEvent.event_name }} is successfully updated.</div>
                 <div class="alert alert-danger" ng-init="submitFailure:false" ng-show="submitFailure" role="alert">Event {{ currentEvent.event_name }} update failed. Please contact administrator.</div>
                 <div ng-show="currentEvent">
+                <button ng-show="!edit_enabled" class="btn btn-warning" ng-click = "edit_enabled = !edit_enabled">Edit Event</button>
+                <button ng-show="edit_enabled" class="btn btn-success" ng-click = "submitForm()">Save Event</button>
                     <table ng-show="!edit_enabled" class='table borderless' id="borderless">
                         <thead>
                         <tr>
@@ -111,8 +113,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    </table>
-        
+                    </table>        
                     <form novalidate ng-show = "edit_enabled">
                     <table class='table borderless' id="borderless">
                         <thead>
@@ -166,9 +167,10 @@
                     </table>
 
                     </form>
-                    
-                <button ng-show="!edit_enabled" class="btn btn-warning pull-right" ng-click = "edit_enabled = !edit_enabled">Edit Event</button>
-                <button ng-show="edit_enabled" class="btn btn-success pull-right" ng-click = "submitForm()">Save Event</button>
+		                             
+                
+
+                <button ng-click="genCSV()" class="btn btn-success"> Download Attendance Data </button> &nbsp &nbsp<button class="btn btn-primary" ng-click="genDGDump()"> Generate DukeGroups Dump </button>  
                 </div>
                 
                 <br>
