@@ -15,16 +15,16 @@
                     </ul>
                 </div>
             </div>
-       
-         
+
+
             </div>
     </div>
-  
+
     <div class="alert alert-danger" ng-show="errorGetEvent" role="alert">Error loading event data.</div>
     <div class="row">
     <div class="col-md-5">
         <div class="row">
-        <div class="panel panel-info" style="min-height: 825px;">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <h4>Event Selection</h4>
             </div>
@@ -50,7 +50,7 @@
             </div>
         </div>
         </div>
-       
+
     </div>
 <!--        DVD3 Graph-->
     <div class="col-md-7">
@@ -64,8 +64,8 @@
                     <attendance-graph data="currentEvent.attendance"></attendance-graph>
                 </div>
                 <br>
-                 <div class="alert alert-success" ng-init="submitSuccess:false" ng-show="submitSuccess" role="alert">Event {{ currentEvent.event_name }} is successfully updated.</div>
-                <div class="alert alert-danger" ng-init="submitFailure:false" ng-show="submitFailure" role="alert">Event {{ currentEvent.event_name }} update failed. Please contact administrator.</div>
+                 <div class="alert alert-success" ng-show="submitSuccess" role="alert">Event {{ currentEvent.event_name }} is successfully updated.</div>
+                <div class="alert alert-danger" ng-show="submitFailure" role="alert">Event {{ currentEvent.event_name }} update failed. Please contact administrator.</div>
                 <div ng-show="currentEvent">
                 <button ng-show="!edit_enabled" class="btn btn-warning" ng-click = "edit_enabled = !edit_enabled">Edit Event</button>
                 <button ng-show="edit_enabled" class="btn btn-success" ng-click = "submitForm()">Save Event</button>
@@ -113,7 +113,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    </table>        
+                    </table>
                     <form novalidate ng-show = "edit_enabled">
                     <table class='table borderless' id="borderless">
                         <thead>
@@ -132,7 +132,7 @@
                             <td>
                                 <input class="form-control" type="text" placeholder="{{currentEvent.start_time | dateFormat }}" ng-model="currentEvent.start_time">
                             </td>
-                                
+
                         </tr>
                          <tr>
                             <td>End Time </td>
@@ -167,12 +167,12 @@
                     </table>
 
                     </form>
-		                             
-                
 
-                <button ng-click="genCSV()" class="btn btn-success"> Download Attendance Data </button> &nbsp &nbsp<button class="btn btn-primary" ng-click="genDGDump()"> Generate DukeGroups Dump </button>  
+
+
+                <button ng-click="genCSV()" class="btn btn-success"> Download Attendance Data </button> &nbsp &nbsp<button class="btn btn-primary" ng-click="genDGDump()"> Generate DukeGroups Dump </button>
                 </div>
-                
+
                 <br>
             </div>
         </div>
