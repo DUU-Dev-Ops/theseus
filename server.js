@@ -6,11 +6,14 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+var envVars = require('./env_vars.js')
 
 // Load libraries
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var favicon = require('serve-favicon');
+var methodOverride = require('method-override');
+var session = require('express-session');
 var io = require('socket.io')(http);
 
 // Set up logging
@@ -27,10 +30,27 @@ app.use(express.static(__dirname + '/public')); // HTML, CSS
 // Set up favicon
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-// Connect to Mongodb
-require('./config/db')();
+// passport-local-auth
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
-// TODO: Configure and load passport.js
+app.use(methodOverride());
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: envVars.secret
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var User = require('./models/User.js');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Connect to Mongodb
+require('./config/db')()
 
 // Set up app routes
 require('./config/routes')(app, io);

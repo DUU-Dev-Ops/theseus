@@ -3,6 +3,7 @@
  */
 
 var express = require('express');
+var User = require('../models/User.js');
 
 module.exports = function(app, io) {
     var hello = require('../api/hello');
@@ -15,5 +16,27 @@ module.exports = function(app, io) {
     app.post('/api/event/:id/attendee', events.addAttendee);
     app.post('/api/event/:id/swipe', events.addSwipe);
     app.post('/api/event/:id/update', events.update);
-    // TODO: Add more
+
+    // Auth routes:
+    app.post('/register', function(req, res) {
+        Account.register(new Account({ username: req.body.username }), req.body.password, function(err, account) {
+            if (err) {
+                return res.render('register', { account: account });
+            }
+
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/');
+            });
+        });
+    });
+    app.post('/login', passport.authenticate('local'), function(req, res) {
+        res.redirect('/');
+    });
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+
+
 };

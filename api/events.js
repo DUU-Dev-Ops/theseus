@@ -1,6 +1,6 @@
 var Event = require('../models/Events.js');
 var request = require('request');
-var keys = require('../apiKeys.js');
+var keys = require('../env_vars.js');
 
 // var sslRootCAs = require('ssl-root-cas/latest')
 // sslRootCAs.inject()
