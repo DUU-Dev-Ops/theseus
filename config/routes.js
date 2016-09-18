@@ -19,7 +19,7 @@ module.exports = function(app, io, passport) {
 
     // Auth routes:
     app.post('/register', function(req, res) {
-        Account.register(new Account({ username: req.body.username }), req.body.password, function(err, account) {
+        User.register(new User({ username: req.body.username }), req.body.password, function(err, account) {
             if (err) {
                 return res.render('register', { account: account });
             }

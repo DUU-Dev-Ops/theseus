@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'nvd3', 'attendanceGraph', 'mainController', 'eventFormController', 'committeeDashCtrl', 'comparisonController', 'swipeController','loginController']);
+var app = angular.module('myApp', ['ngRoute', 'nvd3', 'attendanceGraph', 'mainController', 'eventFormController', 'committeeDashCtrl', 'comparisonController', 'swipeController','loginController','signupController']);
 
 /*
  * FRONT END ROUTING
@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
         controller: 'loginController'
     }).when('/signup', {
         templateUrl: 'pages/signup.html',
-        // controller: 'signupController'
+        controller: 'signupController'
     }).when('/committee-dashboard', {
         templateUrl: 'pages/all_committees.html',
         controller: 'eventFormController'
