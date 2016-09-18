@@ -5,7 +5,7 @@
 var express = require('express');
 var User = require('../models/User.js');
 
-module.exports = function(app, io) {
+module.exports = function(app, io, passport) {
     var hello = require('../api/hello');
     var events = require('../api/events.js')(io);
     app.get('/', hello.world);
@@ -29,9 +29,9 @@ module.exports = function(app, io) {
             });
         });
     });
-    app.post('/login', passport.authenticate('local'), function(req, res) {
-        res.redirect('/');
-    });
+    app.post('/login', passport.authenticate('local',{
+        successRedirect:'/'
+    }));
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');

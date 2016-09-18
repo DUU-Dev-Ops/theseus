@@ -53,7 +53,7 @@ passport.deserializeUser(User.deserializeUser());
 require('./config/db')()
 
 // Set up app routes
-require('./config/routes')(app, io);
+require('./config/routes')(app, io, passport);
 
 // TODO: Set up CSURF, maybe?
 
