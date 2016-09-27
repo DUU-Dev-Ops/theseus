@@ -9,6 +9,9 @@ module.exports = function(io) {
     return {
 
         create: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var newEvent = new Event(req.body);
             newEvent.save(function(err, event) {
                 if (err) {
@@ -20,6 +23,9 @@ module.exports = function(io) {
         },
 
         update: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var event = new Event(req.body);
             Event.update({ _id: req.params.id }, {
                     committee: event.committee,
@@ -52,6 +58,9 @@ module.exports = function(io) {
         },
 
         find: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var currentcommittee = req.params.committee;
             Event.find({ committee: currentcommittee }, function(err, events) {
                 if (err) {
@@ -62,6 +71,9 @@ module.exports = function(io) {
         },
 
         findByID: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var currentID = req.params.id;
             Event.findOne({ _id: currentID }, function(err, IDs) {
                 if (err) {
@@ -91,6 +103,9 @@ module.exports = function(io) {
          */
 
         addAttendee: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
                 ev.attendance.push(req.body);
@@ -115,6 +130,9 @@ module.exports = function(io) {
          */
 
         addSwipe: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
                 request({

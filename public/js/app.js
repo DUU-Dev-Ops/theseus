@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'nvd3', 'attendanceGraph', 'mainController', 'eventFormController', 'committeeDashCtrl', 'comparisonController', 'swipeController','loginController','signupController']);
+var app = angular.module('myApp', ['ngRoute', 'nvd3', 'attendanceGraph', 'mainController', 'eventFormController', 'committeeDashCtrl', 'comparisonController', 'swipeController', 'loginController', 'signupController']);
 
 /*
  * FRONT END ROUTING
@@ -14,7 +14,10 @@ app.config(function($routeProvider) {
         controller: 'mainController'
     }).when('/new', {
         templateUrl: 'pages/new.html',
-        controller: 'eventFormController'
+        controller: 'eventFormController',
+        resolve: {
+            factory: checkRouting
+        }
     }).when('/login', {
         templateUrl: 'pages/login.html',
         controller: 'loginController'
@@ -23,16 +26,28 @@ app.config(function($routeProvider) {
         controller: 'signupController'
     }).when('/committee-dashboard', {
         templateUrl: 'pages/all_committees.html',
-        controller: 'eventFormController'
+        controller: 'eventFormController',
+        resolve: {
+            factory: checkRouting
+        }
     }).when('/committee/:committee', {
         templateUrl: 'pages/committee_dashboard.html',
-        controller: 'committeeDashCtrl'
+        controller: 'committeeDashCtrl',
+        resolve: {
+            factory: checkRouting
+        }
     }).when('/comparison/:committee', {
         templateUrl: 'pages/comparison.html',
-        controller: 'comparisonController'
+        controller: 'comparisonController',
+        resolve: {
+            factory: checkRouting
+        }
     }).when('/swipe/:eventID', {
         templateUrl: 'pages/swipe_input.html',
-        controller: 'swipeController'
+        controller: 'swipeController',
+        resolve: {
+            factory: checkRouting
+        }
     }).otherwise({ redirectTo: '/' })
 });
 
@@ -54,3 +69,21 @@ app.directive('datepicker', function() {
         }
     }
 });
+
+var checkRouting = function($q, $http, $rootScope, $location) {
+    if ($rootScope.currentUser) {
+        return true;
+    } else {
+        var deferred = $q.defer();
+        $http.get("/me")
+            .success(function(response) {
+                $rootScope.currentUser = response.user;
+                deferred.resolve(true);
+            })
+            .error(function(error, status) {
+                deferred.reject();
+                $location.path("/login");
+            });
+        return deferred.promise;
+    }
+};

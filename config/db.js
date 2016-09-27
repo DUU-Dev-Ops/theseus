@@ -4,12 +4,12 @@
  */
 
 var mongoose = require('mongoose');
+var envVars = require('../env_vars.js');
 
 var config = {
-  url: process.env.MONGO_URI || 'mongodb://localhost/deploy'
+    url: envVars.mongoURL || 'mongodb://localhost/deploy'
 }; // The default port of MongoDB is 27017
 
 module.exports = function() {
-  mongoose.connect(config.url);
+    mongoose.connect(config.url);
 };
-

@@ -6,8 +6,10 @@
   "license": "MIT",
   "dependencies": {
     "angular2": "^2.0.0-alpha.46",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.3",
+    "es6-shim": "^0.35.1",
     "express": "^4.13.3",
     "express-session": "^1.14.1",
     "method-override": "^2.3.6",
@@ -16,9 +18,12 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^3.1.0",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "^5.0.0-beta.12",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.8",
-    "ssl-root-cas": "^1.1.10"
+    "ssl-root-cas": "^1.1.10",
+    "zone.js": "^0.6.25"
   },
   "devDependencies": {
     "live-server": "^0.8.2",

@@ -34,6 +34,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+mongoose.Promise = require('bluebird');
 
 app.use(methodOverride());
 app.use(session({
@@ -63,6 +64,7 @@ app.use(function(err, req, res, next) {
     switch (err.name) {
         case "ValidationError":
         case "CastError":
+        case "AuthError":
             err.status = 400;
             break;
             // Add further specific errors here
