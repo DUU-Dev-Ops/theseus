@@ -19,12 +19,15 @@ angular.module('attendanceGraph', []).directive('attendanceGraph', function() {
                 $scope.graphData.year = _.pairs($scope.graphData.year);
 
                 var sortedAttendance = _.sortBy($scope.data, function(a) {
-                    return a.timeSinceStart });
+                    return a.timeSinceStart
+                });
                 var acc = 0;
                 var attendanceMap = {};
-                $scope.graphData.attendance = [{ "x": 0, "y": 0 }];
-                _.map(sortedAttendance, function(a) { acc++;
-                    attendanceMap[a.timeSinceStart] = acc; });
+                $scope.graphData.attendance = [];
+                _.map(sortedAttendance, function(a) {
+                    acc++;
+                    attendanceMap[a.timeSinceStart] = acc;
+                });
                 _.mapObject(attendanceMap, function(v, k) { $scope.graphData.attendance.push({ "x": parseFloat(k), "y": parseFloat(v) }) });
                 $scope.graphData.attendance = [{ values: $scope.graphData.attendance, key: "Attendance" }];
             }, true);
@@ -39,9 +42,11 @@ angular.module('attendanceGraph', []).directive('attendanceGraph', function() {
                         left: 55
                     },
                     x: function(d) {
-                        return parseInt(d.x); },
+                        return parseInt(d.x);
+                    },
                     y: function(d) {
-                        return parseInt(d.y); },
+                        return parseInt(d.y);
+                    },
                     xAxis: {
                         "axisLabel": "Time Since Event Start (min)",
                         "axisLabelDistance": -10
@@ -58,9 +63,11 @@ angular.module('attendanceGraph', []).directive('attendanceGraph', function() {
                     height: 200,
                     showValues: true,
                     x: function(d) {
-                        return d[0]; },
+                        return d[0];
+                    },
                     y: function(d) {
-                        return d[1]; },
+                        return d[1];
+                    },
                     showLabels: false,
                     duration: 500,
                     legend: {

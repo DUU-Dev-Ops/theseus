@@ -136,56 +136,38 @@ module.exports = function(io) {
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
 
-                var newAttendee = {
-                    timeSwiped: Date.now(),
-                    timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
-                    netid: req.body.num,
-                    firstName: "New",
-                    lastName: "Attendee",
-                    gradYear: "",
-                    school: ""
-                }
-
-                ev.attendance.push(newAttendee);
-                ev.save(function(err) {
-                    if (err) return next(err);
-                    io.sockets.in(ev.committee).emit('swipe', { event: ev });
-                    res.send({ "firstName": "New", "lastName": "Attendee" })
-                });
-
-
-                // request({
-                //         url: "https://api.colab.duke.edu/identity/v1/swipe?num=" + req.body.num,
-                //         method: 'GET',
-                //         rejectUnauthorized: false, //Poor security practice, fix?
-                //         headers: {
-                //             'Content-Type': 'application/json',
-                //             'x-api-key': keys.identityKey
-                //         }
-                //     },
-                //     function(err, httpResp, body) {
-                //         console.log(err);
-                //         console.log(body);
-                //         if (err) return next(err);
-                //         body = JSON.parse(body);
-                //         if (body["netid"] === null || body["netid"] === undefined) return next({ message: "Student not found." });
-                //         var newAttendee = {
-                //             timeSwiped: Date.now(),
-                //             timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
-                //             netid: body.netid,
-                //             firstName: body.firstName,
-                //             lastName: body.lastName,
-                //             gradYear: body.gradYear,
-                //             school: body.school
-                //         }
-                //         console.log(newAttendee);
-                //         ev.attendance.push(newAttendee);
-                //         ev.save(function(err) {
-                //             if (err) return next(err);
-                //             io.sockets.in(ev.committee).emit('swipe', { event: ev });
-                //             res.send(body);
-                //         });
-                //     });
+                request({
+                        url: "https://api.colab.duke.edu/identity/v1/swipe?num=" + req.body.num,
+                        method: 'GET',
+                        rejectUnauthorized: false, //Poor security practice, fix?
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': keys.identityKey
+                        }
+                    },
+                    function(err, httpResp, body) {
+                        console.log(err);
+                        console.log(body);
+                        if (err) return next(err);
+                        body = JSON.parse(body);
+                        if (body["netid"] === null || body["netid"] === undefined) return next({ message: "Student not found." });
+                        var newAttendee = {
+                            timeSwiped: Date.now(),
+                            timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
+                            netid: body.netid,
+                            firstName: body.firstName,
+                            lastName: body.lastName,
+                            gradYear: body.gradYear,
+                            school: body.school
+                        }
+                        console.log(newAttendee);
+                        ev.attendance.push(newAttendee);
+                        ev.save(function(err) {
+                            if (err) return next(err);
+                            io.sockets.in(ev.committee).emit('swipe', { event: ev });
+                            res.send(body);
+                        });
+                    });
             });
         }
     };

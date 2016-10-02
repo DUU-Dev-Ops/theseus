@@ -77,7 +77,8 @@
                                 <label for="select" class="col-sm-4 control-label">Committee</label>
                                 <div class="col-sm-8">
                                     <!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
-                                    <select title="Select your committee" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
+                                    <select title="Select your committee/group" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
+                                        <optgroup label="DUU">
                                         <option>Campus Concerts</option>
                                         <option>Coffee House</option>
                                         <option>Duke Student Broadcasting</option>
@@ -91,6 +92,10 @@
                                         <option>Special Events</option>
                                         <option>VisArts</option>
                                         <option>WXDU</option>
+                                      </optgroup>
+                                      <optgroup label="Non-DUU">
+                                        <option>Hoof 'n' Horn</option>
+                                      </optgroup>
                                     </select>
                                     <!--                                <p>{{ event.committee }}</p>-->
                                 </div>
