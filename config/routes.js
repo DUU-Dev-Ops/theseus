@@ -10,6 +10,7 @@ module.exports = function(app, io, passport) {
     var hello = require('../api/hello');
     var events = require('../api/events.js')(io);
     app.get('/', hello.world);
+    app.get('/emails', hello.email);
     app.post('/api/events', events.create);
     app.get('/api/events')
     app.get('/api/events/:committee', events.find);
