@@ -73,7 +73,10 @@
 								<label> Event Title </label>
 								<textarea ng-model="event['Event Title']" value="" md-maxlength="50" rows=5 md-select-on-focus></textarea>
 							</md-input-container>
-
+							<md-input-container ng-show="open">
+								<label> Committee: </label>
+								<textarea ng-model="event['DUU Committee(s) Involved with Event']" value="" md-maxlength="500" rows=1 md-select-on-focus></textarea>
+							</md-input-container>
 							<md-input-container ng-show="open" class="md-block">
 								<label> Event Blurb </label>
 								<textarea ng-model="event['Event Blurb']" value="" md-maxlength="150" rows=5 md-select-on-focus></textarea>
