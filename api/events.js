@@ -108,10 +108,20 @@ module.exports = function(io) {
             }
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
-                ev.attendance.push(req.body);
+                var newAttendee = {
+                    timeSwiped: Date.now(),
+                    timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
+                    netid: req.body.netid,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    gradYear: req.body.gradYear,
+                    school: req.body.school
+                }
+                ev.attendance.push(newAttendee);
                 ev.save(function(err) {
                     if (err) return next(err);
-                    res.send(ev);
+                    io.sockets.in(ev.committee).emit('swipe', { event: ev });
+                    res.send(newAttendee);
                 });
             });
         },

@@ -1,7 +1,23 @@
-<div class="well text-center col-md-12 ng-scope" style="margin-top:80px"> 
-<form id="swipeForm"class="form-inline">
+<div class="well text-center col-md-12 ng-scope" style="margin-top:80px">
+<form id="swipeForm" class="form-inline">
 	<input type="text" class="form-control swipe-input" name="num" autofocus="autofocus" focus-if/>
 	<button type="submit" class="btn btn-default swipe-input">Swipe!</button>
+</form>
+</div>
+<div class="well text-center col-md-12">
+	<h3>
+		Manual Input
+	</h3>
+	<h6>
+	(all fields are optional)
+</h6>
+<form id="manualForm" class="form-inline">
+	<input type="text" size=5 class="form-control" name="netId" placeholder="Net ID"/>
+		<input type="text" class="form-control" name="firstName" placeholder="First Name"/>
+	<input type="text" class="form-control" name="lastName" placeholder="Last Name"/>
+	<input type="text" size=5 class="form-control" name="gradYear" placeholder="Year"/>
+	<input type="text" size=5 class="form-control" name="school" placeholder="School"/>
+	<button type="submit" class="btn btn-default">Add!</button>
 </form>
 </div>
 <div id="swipeResults" cllass="col-md-12" style="text-align: center">

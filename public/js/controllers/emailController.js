@@ -6,6 +6,8 @@ emailGenApp.controller('EmailGenCtrl', function($scope, $timeout, $mdSidenav, $l
 
     $scope.date = new Date();
 
+    $scope.host = window.location.protocol + '//' + window.location.host;
+
     var reader = new FileReader;
 
 
@@ -15,12 +17,6 @@ emailGenApp.controller('EmailGenCtrl', function($scope, $timeout, $mdSidenav, $l
             return e['Event Title'] != null;
         });
 
-        // $scope.events = $.map($scope.events, function(e) {
-        //     if (e["Event Blurb"].length > 147) {
-        //         e["Event Blurb"] = e["Event Blurb"].substring(0, 147) + "...";
-        //     }
-        //     return e;
-        // });
         $scope.$apply()
     }
 
