@@ -46,8 +46,25 @@ swipeController.controller('swipeController', ['$scope', '$routeParams', '$http'
                 $("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
             },
             error: function(err) {
-                console.log(err.responseText);
-                $("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
+                error = JSON.parse(err.responseText).error;
+                if (error.message === "Student not found.") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/event/" + $routeParams.eventID + "/attendee",
+                        data: {
+                            firstName: "Unidentified",
+                            lastName: "Freshman",
+                            gradYear: "2020 Sprng",
+                            school: ""
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            $("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
+                        }
+                    });
+                } else {
+                    $("#swipeResults").prepend("<span style='color: red'>" + error.message + "</span> <br />");
+                }
             },
             complete: function() {
                 $("input[name=num]").val("");
