@@ -1,6 +1,6 @@
 var Event = require('../models/Events.js');
 var request = require('request');
-var keys = require('../apiKeys.js');
+var keys = require('../env_vars.js');
 
 // var sslRootCAs = require('ssl-root-cas/latest')
 // sslRootCAs.inject()
@@ -9,6 +9,9 @@ module.exports = function(io) {
     return {
 
         create: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var newEvent = new Event(req.body);
             newEvent.save(function(err, event) {
                 if (err) {
@@ -20,6 +23,9 @@ module.exports = function(io) {
         },
 
         update: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var event = new Event(req.body);
             Event.update({ _id: req.params.id }, {
                     committee: event.committee,
@@ -52,6 +58,9 @@ module.exports = function(io) {
         },
 
         find: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var currentcommittee = req.params.committee;
             Event.find({ committee: currentcommittee }, function(err, events) {
                 if (err) {
@@ -62,6 +71,9 @@ module.exports = function(io) {
         },
 
         findByID: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             var currentID = req.params.id;
             Event.findOne({ _id: currentID }, function(err, IDs) {
                 if (err) {
@@ -91,12 +103,25 @@ module.exports = function(io) {
          */
 
         addAttendee: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
-                ev.attendance.push(req.body);
+                var newAttendee = {
+                    timeSwiped: Date.now(),
+                    timeSinceStart: ((new Date()).getTime() - new Date(ev.start_time).getTime()) / 60000,
+                    netid: req.body.netid,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    gradYear: req.body.gradYear,
+                    school: req.body.school
+                }
+                ev.attendance.push(newAttendee);
                 ev.save(function(err) {
                     if (err) return next(err);
-                    res.send(ev);
+                    io.sockets.in(ev.committee).emit('swipe', { event: ev });
+                    res.send(newAttendee);
                 });
             });
         },
@@ -115,8 +140,12 @@ module.exports = function(io) {
          */
 
         addSwipe: function(req, res, next) {
+            if (!req.user) {
+                return next({ name: "AuthError" })
+            }
             Event.findOne({ _id: req.params.id }, function(err, ev) {
                 if (err) return next(err);
+
                 request({
                         url: "https://api.colab.duke.edu/identity/v1/swipe?num=" + req.body.num,
                         method: 'GET',
@@ -127,6 +156,8 @@ module.exports = function(io) {
                         }
                     },
                     function(err, httpResp, body) {
+                        console.log(err);
+                        console.log(body);
                         if (err) return next(err);
                         body = JSON.parse(body);
                         if (body["netid"] === null || body["netid"] === undefined) return next({ message: "Student not found." });

@@ -77,7 +77,8 @@
                                 <label for="select" class="col-sm-4 control-label">Committee</label>
                                 <div class="col-sm-8">
                                     <!--                                <input type="text" class="form-control" id="committee" placeholder="Choose your committee">-->
-                                    <select title="Select your committee" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
+                                    <select title="Select your committee/group" ng-model="event.committee" id="committee" class="show-tick form-control" data-size="5" multiple>
+                                        <optgroup label="DUU">
                                         <option>Campus Concerts</option>
                                         <option>Coffee House</option>
                                         <option>Duke Student Broadcasting</option>
@@ -91,6 +92,11 @@
                                         <option>Special Events</option>
                                         <option>VisArts</option>
                                         <option>WXDU</option>
+                                      </optgroup>
+                                      <optgroup label="Non-DUU">
+                                        <option>Hoof 'n' Horn</option>
+                                        <option>Sandbox</option>
+                                      </optgroup>
                                     </select>
                                     <!--                                <p>{{ event.committee }}</p>-->
                                 </div>
@@ -146,6 +152,11 @@
                                             <span class="glyphicon glyphicon-calendar" area-hidden="true"></span>
                                         </span>
                                         <select title="Pick a time" ng-model="event.start_time" id="event-time-from" class="show-tick form-control" data-size="5" multiple>
+                                            <option>5:30 AM</option>
+                                            <option>6:00 AM</option>
+                                            <option>6:30 AM</option>
+                                            <option>7:00 AM</option>
+                                            <option>7:30 AM</option>
                                             <option>8:00 AM</option>
                                             <option>8:30 AM</option>
                                             <option>9:00 AM</option>
@@ -178,6 +189,14 @@
                                             <option>10:30 PM</option>
                                             <option>11:00 PM</option>
                                             <option>11:30 PM</option>
+                                            <option>12:00 AM</option>
+                                            <option>12:30 AM</option>
+                                            <option>1:00 AM</option>
+                                            <option>1:30 AM</option>
+                                            <option>2:00 AM</option>
+                                            <option>2:30 AM</option>
+                                            <option>3:00 AM</option>
+                                            <option>3:30 AM</option>
                                         </select>
 
                                         <!--                                <p>{{ event.start_time }}</p>-->
@@ -202,6 +221,11 @@
                                         </span>
 
                                         <select title="Pick a time" ng-model="event.end_time" class="form-control show-tick" data-size="5" id="event-time-to" multiple>
+                                            <option>5:30 AM</option>
+                                            <option>6:00 AM</option>
+                                            <option>6:30 AM</option>
+                                            <option>7:00 AM</option>
+                                            <option>7:30 AM</option>
                                             <option>8:00 AM</option>
                                             <option>8:30 AM</option>
                                             <option>9:00 AM</option>
@@ -234,6 +258,14 @@
                                             <option>10:30 PM</option>
                                             <option>11:00 PM</option>
                                             <option>11:30 PM</option>
+                                            <option>12:00 AM</option>
+                                            <option>12:30 AM</option>
+                                            <option>1:00 AM</option>
+                                            <option>1:30 AM</option>
+                                            <option>2:00 AM</option>
+                                            <option>2:30 AM</option>
+                                            <option>3:00 AM</option>
+                                            <option>3:30 AM</option>
                                         </select>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-time" area-hidden="true"></span>

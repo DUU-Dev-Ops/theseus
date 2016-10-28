@@ -1,0 +1,42 @@
+.event
+{
+    width: 100;
+    margin: 5px;
+    padding: 5px;
+
+    list-style: none;
+
+    border-radius: 5px;
+}
+
+.event:hover
+{
+    cursor: move;
+}
+
+md-sidenav,
+md-sidenav.md-locked-open,
+md-sidenav.md-closed.md-locked-open-add-active
+{
+    width: 500px!important;
+    min-width: 200px !important;
+    max-width: 500px !important;
+}
+
+.my-card
+{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+            flex-direction: column;
+
+    box-sizing: border-box;
+    margin: 8px;
+
+    border-radius: 2px;
+    background-color: rgb(255,255,255);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+}

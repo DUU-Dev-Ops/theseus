@@ -1,28 +1,76 @@
-var swipeController = angular.module('swipeController',['focus-if']);
-swipeController.controller('swipeController',['$scope', '$routeParams', '$http', function($scope, $routeParams, $http){
-	$scope.eventID = $routeParams.eventID;
-	$('#swipeForm').submit(function(e) {
-		var cardNum = $("[name=num]").val();
-		if(cardNum.charAt(0) === ';') {
-			cardNum = cardNum.substring(6,cardNum.length - 1);
-		}
-		e.preventDefault();
-		console.log("hi");
-		$.ajax({
-			type: "POST",
-			url: "/api/event/" + $routeParams.eventID + "/swipe",
-			data: {num: cardNum},
-			dataType: "json",
-			success: function(data) {
-				$("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
-			},
-			error: function(err) {
-				console.log(err.responseText);
-				$("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
-			},
-			complete: function() {
-				$("input[name=num]").val("");
-			}
-		});
-	});
+var swipeController = angular.module('swipeController', ['focus-if']);
+swipeController.controller('swipeController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+    $scope.eventID = $routeParams.eventID;
+    $('#manualForm').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/api/event/" + $routeParams.eventID + "/attendee",
+            data: {
+                netid: $("input[name=netId]").val(),
+                firstName: $("input[name=firstName]").val(),
+                lastName: $("input[name=lastName]").val(),
+                gradYear: $("input[name=gradYear]").val(),
+                school: $("input[name=school]").val(),
+            },
+            dataType: "json",
+            success: function(data) {
+                $("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
+            },
+            error: function(err) {
+                console.log(err.responseText);
+                $("#swipeResults").prepend("<span style='color: red'>" + JSON.parse(err.responseText).error.message + "</span> <br />");
+            },
+            complete: function() {
+                $("input[name=netId]").val("");
+                $("input[name=firstName]").val("");
+                $("input[name=lastName]").val("");
+                $("input[name=gradYear]").val("");
+                $("input[name=school]").val("");
+            }
+        });
+        $(".swipe-input[name=num]").focus();
+    });
+    $('#swipeForm').submit(function(e) {
+        var cardNum = $("[name=num]").val();
+        if (cardNum.charAt(cardNum.length - 1) === '?') {
+            cardNum = cardNum.substring(cardNum.length - 11, cardNum.length - 1);
+        }
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/api/event/" + $routeParams.eventID + "/swipe",
+            data: { num: cardNum },
+            dataType: "json",
+            success: function(data) {
+                $("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
+            },
+            error: function(err) {
+                error = JSON.parse(err.responseText).error;
+                if (error.message === "Student not found.") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/event/" + $routeParams.eventID + "/attendee",
+                        data: {
+                            firstName: "Unidentified",
+                            lastName: "Freshman",
+                            gradYear: "2020 Sprng",
+                            school: ""
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            $("#swipeResults").prepend("<span style='color: green'>" + data.firstName + " " + data.lastName + "</span> swiped in. <br />");
+                        }
+                    });
+                } else {
+                    $("#swipeResults").prepend("<span style='color: red'>" + error.message + "</span> <br />");
+                }
+            },
+            complete: function() {
+                $("input[name=num]").val("");
+            }
+        });
+        $(".swipe-input[name=num]").focus();
+    });
+    $(".swipe-input[name=num]").focus();
 }]);

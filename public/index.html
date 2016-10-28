@@ -40,6 +40,9 @@
     <script src="js/controllers/committeeDashCtrl.js"></script>
     <script src="js/controllers/comparisonController.js"></script>
     <script src="js/controllers/swipeController.js"></script>
+    <script type="text/javascript" src="js/controllers/loginController.js"></script>
+    <script type="text/javascript" src="js/controllers/signupController.js"></script>
+
 
     <!-- Bootstrap Core -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -107,8 +110,10 @@
                                 </form>
                             </li-->
                             <li><a href="/#/new"><span class="glyphicon glyphicon-plus"></span> New Event</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                            <li><a href="/#/committee-dashboard"><span class="glyphicon glyphicon-th-list"></span> Committee Dashboard</a></li>
+                            <li ng-if="!currentUser"><a href="/#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li ng-if="!currentUser"><a href="/#/signup"><span class="glyphicon glyphicon-log-in"></span> Signup</a></li>
+                            <li ng-if="currentUser"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            <li ng-if="currentUser"><a href="/#/committee-dashboard"><span class="glyphicon glyphicon-th-list"></span> Committee Dashboard</a></li>
                         </ul>
                     </div>
                 </div>
