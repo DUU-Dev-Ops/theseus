@@ -82,6 +82,10 @@
 								<textarea ng-model="event['Event Blurb']" value="" rows=5 md-select-on-focus></textarea>
 							</md-input-container>
 							<md-input-container ng-show="open">
+								<label> Date: </label>
+								<input type="text" ng-model="event['Date']" value="" placeholder="mm/dd/yy" md-select-on-focus />
+							</md-input-container>
+							<md-input-container ng-show="open">
 								<label> Links: </label>
 								<textarea ng-model="event['Hyperlinks to Include (if multiple, separate by commas)']" value="" md-maxlength="500" rows=5 md-select-on-focus></textarea>
 							</md-input-container>
@@ -236,6 +240,19 @@
 								</div>
 								<div class="blast-blurb" style="padding: 20px;padding-bottom: 0px; font-family:  Helvetica, Arial, Times, sans">
 									{{blurb}}
+								</div>
+								<div class="blast-forecast" style="padding: 20px;">
+									<span style="text-align: left;font-weight: 100;font-family: &quot;Lato Light&quot;, &quot;Helvetica Light&quot;, Helvetica, Arial, sans;font-size: 20px;margin-bottom: 0;">
+									Forecast:
+									</span>
+									<div ng-repeat="day in forecast" ng-style="{'background-color': $even ? '#E3F2FD' : 'inherit', 'padding': '3px', 'font-size': '16px'}">
+										<h3 style="text-decoration: bold; margin: 0; padding: 0; display: inline; font-size: 16px">
+											{{day.dateStr}}:
+										</h3>
+										<span ng-repeat="event in day.events" ng-style="{'color': $even ? '#001A57' : 'inherit'}">
+											<span>{{event['Event Title']}}</span>{{$last ? '' : ','}}
+										</span>
+									</div>
 								</div>
 								<div class="event" ng-repeat="event in events" style="padding: 20px;margin: 0;">
 									<div class="event-thumb" style="float: left;margin-top: 10px;">
